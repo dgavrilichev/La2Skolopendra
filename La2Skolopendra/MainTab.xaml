@@ -19,6 +19,8 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Row="0" Grid.Column="2"
+                Command="{Binding UpdateCommand}"
+                IsEnabled="{Binding UpdateIsEnabled}"
                 Content="Refresh"/>
         <Label Grid.Row="0" Grid.Column="0" Content="La2 windows:"/>
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3"
