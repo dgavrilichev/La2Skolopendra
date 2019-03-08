@@ -13,7 +13,7 @@ namespace La2Skolopendra.Native
         internal static extern int SetForegroundWindow(IntPtr hWnd);
 
         [NotNull]
-        private static IEnumerable<IntPtr> GetWindowsByName(string windowName)
+        internal static IEnumerable<IntPtr> GetWindowsByName(string windowName)
         {
             if(string.IsNullOrEmpty(windowName)) throw new ArgumentNullException(nameof(windowName));
 
