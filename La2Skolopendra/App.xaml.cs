@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using CommonLibrary.Logging;
@@ -31,7 +26,7 @@ namespace La2Skolopendra
         private void AppOnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             _logger.Critical(e.Exception.ToString());
-            MessageBox.Show(e.Exception.ToString(), "Tile Manager - Critical error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.Exception.ToString(), "Critical error!", MessageBoxButton.OK, MessageBoxImage.Error);
             //e.Handled = true;
         }
     }

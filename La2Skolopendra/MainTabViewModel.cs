@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using CommonLibrary.Logging;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
@@ -19,6 +22,8 @@ namespace La2Skolopendra
         [NotNull] public ObservableCollection<La2WindowViewModel> La2WindowsCollection { get; } = new ObservableCollection<La2WindowViewModel>();
 
         private bool _updateIsEnabled = true;
+        [NotNull] private readonly SynchronizationContext _uiContext;
+
         public bool UpdateIsEnabled
         {
             get => _updateIsEnabled;
@@ -33,6 +38,7 @@ namespace La2Skolopendra
         internal MainTabViewModel([NotNull] ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _uiContext = SynchronizationContext.Current;
         }
 
         public ICommand UpdateCommand
@@ -49,15 +55,22 @@ namespace La2Skolopendra
         {
             UpdateIsEnabled = false;
 
-            La2WindowsCollection.Clear();
+            await Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new Action(() => {
+                   La2WindowsCollection.Clear();
+                }));
 
             _logger.Info("Now loading La2 windows..");
             var la2Windows = WindowHelper.GetWindowsByName(WindowName).ToList();
-            await Task.Delay(TimeSpan.FromSeconds(3));
 
             foreach (var la2Window in la2Windows)
             {
-                La2WindowsCollection.Add(new La2WindowViewModel(null, la2Window.Id.ToString()));
+                await Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Background,
+                    new Action(() => {
+                        La2WindowsCollection.Add(new La2WindowViewModel(null, la2Window.Id.ToString()));
+                    }));                
             }
 
             UpdateIsEnabled = true;
