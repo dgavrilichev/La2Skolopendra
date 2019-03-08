@@ -22,9 +22,17 @@ namespace La2Skolopendra.Native
                 select pList.MainWindowHandle;
         }
 
+        internal static Rect GetWindowRect(IntPtr hWnd)
+        {
+            var rect = new WindowHelper.Rect();
+            GetWindowRect(hWnd, ref rect);
+
+            return rect;
+        }
+
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
+        private static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct Rect
@@ -34,5 +42,15 @@ namespace La2Skolopendra.Native
             public int right;
             public int bottom;
         }
+
+        internal static bool SendMessage(IntPtr hWnd)
+        {
+            return SendMessage(hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool SendMessage(IntPtr hWnd, Int32 msg, Int32 wParam, Int32 lParam);
+        private static Int32 WM_SYSCOMMAND = 0x0112;
+        private static Int32 SC_RESTORE = 0xF120;
     }
 }

@@ -15,6 +15,8 @@ namespace La2Skolopendra
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             MainTabViewModel = new MainTabViewModel(logger);
+
+            //bmp.Save("test.png", System.Drawing.Imaging.ImageFormat.Png);
         }
     }
 }
