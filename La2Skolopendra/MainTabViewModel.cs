@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using CommonLibrary.Logging;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
@@ -20,7 +21,14 @@ namespace La2Skolopendra
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
+            Task.Run(LoadWindows);
+        }
+
+        private async Task LoadWindows()
+        {
+            _logger.Info("Now loading La2 windows..");
             var la2Windows = WindowHelper.GetWindowsByName(WindowName).ToList();
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
     }
 }
