@@ -13,13 +13,13 @@ namespace La2Skolopendra.Native
         internal static extern int SetForegroundWindow(IntPtr hWnd);
 
         [NotNull]
-        internal static IEnumerable<IntPtr> GetWindowsByName(string windowName)
+        internal static IEnumerable<Process> GetWindowsByName(string windowName)
         {
             if(string.IsNullOrEmpty(windowName)) throw new ArgumentNullException(nameof(windowName));
 
             return from pList in Process.GetProcesses()
                 where pList.MainWindowTitle.Contains(windowName)
-                select pList.MainWindowHandle;
+                select pList;
         }
 
         internal static Rect GetWindowRect(IntPtr hWnd)

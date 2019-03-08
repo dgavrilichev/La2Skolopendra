@@ -44,10 +44,16 @@ namespace La2Skolopendra
         {
             UpdateIsEnabled = false;
 
+            La2WindowsCollection.Clear();
+
             _logger.Info("Now loading La2 windows..");
             var la2Windows = WindowHelper.GetWindowsByName(WindowName).ToList();
             await Task.Delay(TimeSpan.FromSeconds(3));
 
+            foreach (var la2Window in la2Windows)
+            {
+                La2WindowsCollection.Add(new La2WindowViewModel(null, la2Window.Id.ToString()));
+            }
 
             UpdateIsEnabled = true;
         }
