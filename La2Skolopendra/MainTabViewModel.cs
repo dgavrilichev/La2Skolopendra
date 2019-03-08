@@ -37,10 +37,15 @@ namespace La2Skolopendra
 
         public ICommand UpdateCommand
         {
-            get { return new RelayCommand(o => Task.Run(LoadWindows)); }
+            get { return new RelayCommand(o => Task.Run(() => LoadWindows())); }
         }
 
-        private async Task LoadWindows()
+        private async void LoadWindows()
+        {
+            await LoadWindowsAsync();
+        }
+
+        private async Task LoadWindowsAsync()
         {
             UpdateIsEnabled = false;
 
