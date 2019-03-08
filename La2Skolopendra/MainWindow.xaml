@@ -9,7 +9,7 @@
     <Grid>
         <TabControl>
             <TabItem Header="Main">
-                <la2Skolopendra:MainTab/>
+                <la2Skolopendra:MainTab DataContext="{Binding MainTabViewModel}"/>
             </TabItem>
         </TabControl>
     </Grid>
