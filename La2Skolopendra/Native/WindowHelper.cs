@@ -21,5 +21,18 @@ namespace La2Skolopendra.Native
                 where pList.MainWindowTitle.Contains(windowName)
                 select pList.MainWindowHandle;
         }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Rect
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
     }
 }
