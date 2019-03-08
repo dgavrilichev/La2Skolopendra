@@ -8,8 +8,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Image Grid.Row="0" Grid.Column="0"
-               Width="256" Height="256"
-               Source="{Binding Image}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0"
+                    Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Process Id:"/>
+                <Label Content="{Binding ProcessId}"/>
+            </StackPanel>
+            <Image Width="256" Height="256"
+                Source="{Binding Image}" />
+        </StackPanel>
     </Grid>
 </UserControl>
