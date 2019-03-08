@@ -16,5 +16,34 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="La2 windows:"/>
+        <Border BorderThickness="1,0,0,0" BorderBrush="#7734431E" Padding="2,0,0,0" Background="#FFF1F1EF">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="0.2"  RenderingBias="Performance"
+                                  Opacity="0.1" ShadowDepth="2"
+                                  Color="Olive"
+                                  Direction="0" />
+            </Border.Effect>
+            <Grid>
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <DataTemplate DataType="{x:Type local:La2WindowViewModel}">
+                            <local:La2WindowControl />
+                        </DataTemplate>
+                    </ResourceDictionary>
+                </Grid.Resources>
+
+                <ScrollViewer Margin="0,3"
+                              VerticalScrollBarVisibility="Visible" 
+                              HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding La2WindowsCollection}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
