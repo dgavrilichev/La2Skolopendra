@@ -92,7 +92,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITab.cs" />
     <Compile Include="La2WindowControl.xaml.cs">
       <DependentUpon>La2WindowControl.xaml</DependentUpon>
     </Compile>
@@ -106,10 +105,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OcrRegionTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Native\ScreenshotHelper.cs" />
     <Compile Include="Native\WindowHelper.cs" />
+    <Compile Include="OcrRegionTab.xaml.cs">
+      <DependentUpon>OcrRegionTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OcrRegionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

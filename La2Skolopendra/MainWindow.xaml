@@ -20,22 +20,14 @@
         </StackPanel>
 
         <Grid Grid.Row="0">
-            <TabControl ItemsSource="{Binding Tabs}" x:Name="TabControl">
-                <TabControl.ItemTemplate>
-                    <DataTemplate DataType="la2Skolopendra:MainTabViewModel">
-                        <TextBlock Text="{Binding Header}"/>
-                    </DataTemplate>
-                </TabControl.ItemTemplate>
-                <TabControl.ContentTemplate>
-                    <DataTemplate DataType="la2Skolopendra:MainTabViewModel">
-                        <la2Skolopendra:MainTab/>
-                    </DataTemplate>
-                </TabControl.ContentTemplate>
+            <TabControl x:Name="TabControl">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Padding" Value="8" />
                     </Style>
                 </TabControl.Resources>
+                <TabItem Header="Main" DataContext="{Binding MainTabViewModel}"/>
+                <TabItem Header="OCR" DataContext="{Binding OcrRegionViewModel}"/>
             </TabControl>
         </Grid>
     </Grid>

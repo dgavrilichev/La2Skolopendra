@@ -16,15 +16,16 @@ namespace La2Skolopendra
 
         [NotNull] private readonly ILogger _logger;
 
-        [NotNull] public ObservableCollection<ITab> Tabs { get; } = new ObservableCollection<ITab>();
+        [NotNull] public MainTabViewModel MainTabViewModel { get; }
+        [NotNull] public OcrRegionViewModel OcrRegionViewModel { get; }
 
         internal MainViewModel([NotNull] ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            var mainTabViewModel = new MainTabViewModel(logger);
-            mainTabViewModel.RequestActivateWindow += (sender, args) => OnRequestActivateWindow();
-            Tabs.Add(mainTabViewModel);
+            MainTabViewModel = new MainTabViewModel(logger);
+            MainTabViewModel.RequestActivateWindow += (sender, args) => OnRequestActivateWindow();
+            OcrRegionViewModel = new OcrRegionViewModel();
         }
     }
 }
