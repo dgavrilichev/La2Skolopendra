@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using CommonLibrary;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
+using Brush = System.Drawing.Brush;
+using Brushes = System.Drawing.Brushes;
 
 namespace La2Skolopendra
 {
@@ -79,6 +83,7 @@ namespace La2Skolopendra
             if (mainWindowImage != null)
             {
                 Image = mainWindowImage;
+                RegionImage = BitmapHelper.BitmapToBitmapSource(new Bitmap(Image.PixelWidth, Image.PixelHeight));
                 TargetHpSelector = new OcrAreaSelectorViewModel(new Size(mainWindowImage.PixelWidth, mainWindowImage.PixelHeight));
                 TargetHpSelector.AreaBoundsChanged += TargetHpSelectorOnAreaBoundsChanged;
                 MyHpSelector = new OcrAreaSelectorViewModel(new Size(mainWindowImage.PixelWidth, mainWindowImage.PixelHeight));
@@ -88,22 +93,36 @@ namespace La2Skolopendra
 
         private void MyHpSelectorOnAreaBoundsChanged(object sender, Rectangle e)
         {
-
             _ocrRegionInfo.MyHp = e;
-
+            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRectangle());
         }
 
         private void TargetHpSelectorOnAreaBoundsChanged(object sender, Rectangle e)
         {
             _ocrRegionInfo.TargetHp = e;
+            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRectangle());
         }
 
         [NotNull]
-        private Bitmap DrawRectangle(Rectangle rectangle, Brush color, [NotNull] Bitmap srcBitmap)
+        private Bitmap DrawRectangle()
         {
-            if(srcBitmap == null) throw new ArgumentNullException(nameof(srcBitmap));
+            var target = new Bitmap(Image.PixelWidth, Image.PixelHeight);
+            target.MakeTransparent();
 
-            return null;
+            using (var graphics = Graphics.FromImage(target))
+            {
+                graphics.FillRectangle(_myHpColor, _ocrRegionInfo.MyHp.X,
+                    _ocrRegionInfo.MyHp.Y, 
+                    _ocrRegionInfo.MyHp.Width,
+                    _ocrRegionInfo.MyHp.Height);
+
+                graphics.FillRectangle(_targetHpColor, _ocrRegionInfo.MyHp.X,
+                    _ocrRegionInfo.MyHp.Y,
+                    _ocrRegionInfo.MyHp.Width,
+                    _ocrRegionInfo.MyHp.Height);
+            }
+
+            return target;
         }
     }
 }
