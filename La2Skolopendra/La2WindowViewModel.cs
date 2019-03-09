@@ -21,7 +21,7 @@ namespace La2Skolopendra
         }
 
         private readonly IntPtr _hWnd;
-        private string _processId;
+        private readonly string _processId;
         private bool _isMain;
 
         public BitmapSource Image { get; }
@@ -52,12 +52,13 @@ namespace La2Skolopendra
             }
         }
 
-        internal La2WindowViewModel([NotNull] BitmapSource bitmapSource, string processIdDisplay, IntPtr hWnd)
+        internal La2WindowViewModel([NotNull] BitmapSource bitmapSource, string processId, IntPtr hWnd)
         {
-            if(string.IsNullOrEmpty(processIdDisplay)) throw new ArgumentNullException(processIdDisplay);
+            if(string.IsNullOrEmpty(processId)) throw new ArgumentNullException(processId);
             Image = bitmapSource ?? throw new ArgumentNullException(nameof(bitmapSource));
-            ProcessIdDisplay = processIdDisplay;
+            _processId = processId;
             _hWnd = hWnd;
+            SetAsSlave();
         }
 
         public ICommand SetAsMainCommand
@@ -75,6 +76,11 @@ namespace La2Skolopendra
             ShowProcessId();
         }
 
+        internal void SetAsSlave()
+        {
+            _isMain = false;
+            ShowProcessId();
+        }
 
         private void ShowProcessId()
         {
