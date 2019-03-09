@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using CommonLibrary;
 using CommonLibrary.Logging;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
-using La2Bot;
 using La2Skolopendra.Native;
 
 namespace La2Skolopendra
@@ -21,6 +13,12 @@ namespace La2Skolopendra
     internal sealed class MainTabViewModel : ViewModelBase
     {
         private const string WindowName = "Lineage II";
+
+        internal event EventHandler RequestActivateWindow;
+        private void OnRequestActivateWindow()
+        {
+            RequestActivateWindow?.Invoke(this, EventArgs.Empty);
+        }
 
         [NotNull] private readonly ILogger _logger;
 
@@ -65,9 +63,10 @@ namespace La2Skolopendra
                 var source = BitmapHelper.BitmapToBitmapSource(screenshot);
                 source.Freeze();
                 La2WindowsCollection.Add(new La2WindowViewModel(source, "ss"));
-                Thread.Sleep(2000);
+                Thread.Sleep(200);
             }
 
+            OnRequestActivateWindow();
             UpdateIsEnabled = true;
         }
     }

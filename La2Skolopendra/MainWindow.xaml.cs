@@ -1,28 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using JetBrains.Annotations;
 
 namespace La2Skolopendra
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        public MainWindow()
+        internal MainWindow([NotNull] MainViewModel viewModel)
         {
+            if(viewModel == null) throw new ArgumentNullException(nameof(viewModel));
+
+            viewModel.RequestActivateWindow += (sender, args) => Activate();
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

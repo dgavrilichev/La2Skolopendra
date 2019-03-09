@@ -19,7 +19,7 @@ namespace La2Skolopendra
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             _logger.Important("App start");
-            var window = new MainWindow {DataContext = new MainViewModel(_logger)};
+            var window = new MainWindow(new MainViewModel(_logger));
             window.Show();
         }
 

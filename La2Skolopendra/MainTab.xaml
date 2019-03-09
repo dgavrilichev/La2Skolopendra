@@ -18,10 +18,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="2"
-                Command="{Binding UpdateCommand}"
-                IsEnabled="{Binding UpdateIsEnabled}"
-                Content="Refresh"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+            <Label Content="Program will switch to La2 windows on Refresh! Wait until operation complete!"/>
+            <Button Command="{Binding UpdateCommand}"
+                    IsEnabled="{Binding UpdateIsEnabled}"
+                    Content="Refresh"/>
+        </StackPanel>
+
         <Label Grid.Row="0" Grid.Column="0" Content="La2 windows:"/>
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3"
                 BorderThickness="1" 
