@@ -22,10 +22,25 @@ namespace La2Skolopendra
             }
         }
 
-        internal void SetMainWindowImage([NotNull] Bitmap mainWindowImage)
+        private bool _isEnabled;
+        public bool IsEnabled
         {
-            _mainWindowImage = mainWindowImage ?? throw new ArgumentNullException(nameof(mainWindowImage));
-            Image = BitmapHelper.BitmapToBitmapSource(mainWindowImage);
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        internal void SetMainWindowImage(Bitmap mainWindowImage)
+        {
+            IsEnabled = mainWindowImage != null;
+
+            _mainWindowImage = mainWindowImage;
+
+            if(mainWindowImage != null)
+                Image = BitmapHelper.BitmapToBitmapSource(mainWindowImage);
         }
     }
 }
