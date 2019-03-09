@@ -29,7 +29,10 @@
                 <TabItem Header="Main">
                     <la2Skolopendra:MainTab  DataContext="{Binding MainTabViewModel}"/>
                 </TabItem>
-                <TabItem Header="OCR">
+                <TabItem Header="Values detection">
+                    <la2Skolopendra:OcrRegionTab DataContext="{Binding OcrRegionViewModel}"/>
+                </TabItem>
+                <TabItem Header="Interface exclude zones">
                     <la2Skolopendra:OcrRegionTab DataContext="{Binding OcrRegionViewModel}"/>
                 </TabItem>
             </TabControl>

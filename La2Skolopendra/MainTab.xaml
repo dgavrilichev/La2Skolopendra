@@ -7,7 +7,7 @@
              d:DataContext="{d:DesignInstance d:Type=local:MainTabViewModel, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="800">
-    <Grid Margin="10" Grid.Row="2">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

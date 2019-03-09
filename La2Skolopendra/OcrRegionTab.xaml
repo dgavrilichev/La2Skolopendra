@@ -26,7 +26,8 @@
             <ScrollViewer Margin="0,3"
                           VerticalScrollBarVisibility="Visible" 
                           HorizontalScrollBarVisibility="Visible">
-
+                <Image Stretch="None"
+                       Source="{Binding Image}" />
             </ScrollViewer>
         </Border>
         <Border Grid.Row="0" Grid.Column="1" Margin="3"
