@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:La2Skolopendra"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:la2Skolopendra="clr-namespace:La2Skolopendra"
+             d:DataContext="{d:DesignInstance d:Type=la2Skolopendra:OcrAreaSelectorViewModel, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="300">
     <StackPanel Orientation="Vertical">
@@ -11,7 +12,8 @@
             <Label Content="X:" VerticalAlignment="Center" Width="45"/>
             <Slider Orientation="Horizontal"
                     VerticalAlignment="Center"
-                    Maximum="10" Minimum="0" Width="100"/>
+                    Value="{Binding CurrentX}"
+                    Maximum="{Binding MaxWidth}" Minimum="0" Width="100"/>
             <TextBox Width="50" VerticalAlignment="Center"/>
         </StackPanel>
 
@@ -19,7 +21,8 @@
             <Label Content="Y:" VerticalAlignment="Center" Width="45"/>
             <Slider Orientation="Horizontal"
                     VerticalAlignment="Center"
-                    Maximum="10" Minimum="0" Width="100"/>
+                    Value="{Binding CurrentY}"
+                    Maximum="{Binding MaxHeight}" Minimum="0" Width="100"/>
             <TextBox Width="50" VerticalAlignment="Center"/>
         </StackPanel>
 
@@ -27,7 +30,8 @@
             <Label Content="Width:" VerticalAlignment="Center" Width="45"/>
             <Slider Orientation="Horizontal"
                     VerticalAlignment="Center"
-                    Maximum="10" Minimum="0" Width="100"/>
+                    Value="{Binding CurrentWidth}"
+                    Maximum="{Binding MaxWidth}" Minimum="0" Width="100"/>
             <TextBox Width="50" VerticalAlignment="Center"/>
         </StackPanel>
 
@@ -35,7 +39,8 @@
             <Label Content="Height:" VerticalAlignment="Center" Width="45"/>
             <Slider Orientation="Horizontal"
                     VerticalAlignment="Center"
-                    Maximum="10" Minimum="0" Width="100"/>
+                    Value="{Binding CurrentHeight}"
+                    Maximum="{Binding MaxHeight}" Minimum="0" Width="100"/>
             <TextBox Width="50" VerticalAlignment="Center"/>
         </StackPanel>
     </StackPanel>

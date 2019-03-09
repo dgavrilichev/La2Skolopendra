@@ -7,28 +7,53 @@ namespace La2Skolopendra
     {
         internal OcrAreaSelectorViewModel(Size imageSize)
         {
-            
+            MaxHeight = imageSize.Height;
+            MaxWidth = imageSize.Width;
         }
 
+        public int MaxHeight { get; }
+        public int MaxWidth { get; }
 
-        private int _maxHeight;
-        public int MaxHeight
+        private int _currentX;
+        public int CurrentX
         {
-            get => _maxHeight;
+            get => _currentX;
             set
             {
-                _maxHeight = value;
+                _currentX = value;
                 NotifyPropertyChanged();
             }
         }
 
-        private int _maxWidth;
-        public int MaxWidth
+        private int _currentY;
+        public int CurrentY
         {
-            get => _maxWidth;
+            get => _currentY;
             set
             {
-                _maxWidth = value;
+                _currentY = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private int _currentHeight;
+        public int CurrentHeight
+        {
+            get => _currentHeight;
+            set
+            {
+                _currentHeight = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private int _currentWidth;
+        public int CurrentWidth
+        {
+            get => _currentWidth;
+            set
+            {
+                _currentWidth = value;
                 NotifyPropertyChanged();
             }
         }
