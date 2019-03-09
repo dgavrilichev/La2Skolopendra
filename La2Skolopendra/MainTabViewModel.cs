@@ -62,7 +62,7 @@ namespace La2Skolopendra
           
             _logger.Info("Now loading La2 windows..");
 
-            var existedWindows = new List<La2WindowViewModel>();
+            var windowsToKeep = new List<La2WindowViewModel>();
             var la2Windows = WindowHelper.GetWindowByName(WindowName);
 
             foreach (var la2Window in la2Windows)
@@ -78,18 +78,19 @@ namespace La2Skolopendra
                     viewModel.IsEnabledChanged += WindowOnIsEnabledChanged;
                     viewModel.SetAsMain += WindowOnSetAsMain;
                     La2WindowsCollection.Add(viewModel);
+                    windowsToKeep.Add(viewModel);
                 }
                 else
                 {
                     existed.Image = source;
-                    existedWindows.Add(existed);
+                    windowsToKeep.Add(existed);
                 }
 
                 Thread.Sleep(100);
             }
 
-            var closed = La2WindowsCollection.Where(w => !existedWindows.Contains(w)).ToList();
-            foreach (var la2WindowViewModel in closed)
+            var windowsToRemove = La2WindowsCollection.Where(w => !windowsToKeep.Contains(w)).ToList();
+            foreach (var la2WindowViewModel in windowsToRemove)
             {
                 La2WindowsCollection.Remove(la2WindowViewModel);
             }
@@ -100,12 +101,12 @@ namespace La2Skolopendra
 
         private void WindowOnSetAsMain(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void WindowOnIsEnabledChanged(object sender, bool e)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
