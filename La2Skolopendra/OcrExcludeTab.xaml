@@ -46,10 +46,15 @@
                                   Direction="0" />
             </Border.Effect>
 
-            <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
                 <Button Command="{Binding AddExcludeRegionCommand}"
                     Content="Add new exclude region"/>
-                <ScrollViewer Margin="0,3"
+                <ScrollViewer Grid.Row="1" Margin="0,3"
                               VerticalScrollBarVisibility="Visible" 
                               HorizontalScrollBarVisibility="Hidden">
                     <ScrollViewer.Resources>
@@ -68,7 +73,7 @@
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
                 </ScrollViewer>
-            </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

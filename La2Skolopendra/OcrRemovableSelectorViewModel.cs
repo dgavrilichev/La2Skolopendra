@@ -19,6 +19,8 @@ namespace La2Skolopendra
             RequestRemove?.Invoke(this, EventArgs.Empty);
         }
 
+        internal int Id { get; }
+
         private OcrAreaSelectorViewModel _selectorViewModel;
         public OcrAreaSelectorViewModel SelectorViewModel
         {
@@ -31,8 +33,9 @@ namespace La2Skolopendra
             }
         }
 
-        internal OcrRemovableSelectorViewModel()
+        internal OcrRemovableSelectorViewModel(int id)
         {
+            Id = id;
             SelectorViewModel = new OcrAreaSelectorViewModel();
             SelectorViewModel.AreaBoundsChanged += (sender, rectangle) => OnAreaBoundsChanged(rectangle);
         }

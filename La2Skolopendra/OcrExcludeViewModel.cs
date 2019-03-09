@@ -10,9 +10,12 @@ namespace La2Skolopendra
 {
     internal sealed class OcrExcludeViewModel : ViewModelBase
     {
-        [NotNull] public ObservableCollection<OcrRemovableSelectorViewModel> RemovableSelectors { get; } = new ObservableCollection<OcrRemovableSelectorViewModel>();
-    
         [NotNull] private readonly Pen _borderPen = new Pen(Brushes.SpringGreen);
+        [NotNull] private readonly Font _drawFont = new Font("Arial", 16);
+
+        private int _currentId;
+
+        [NotNull] public ObservableCollection<OcrRemovableSelectorViewModel> RemovableSelectors { get; } = new ObservableCollection<OcrRemovableSelectorViewModel>();
 
         private BitmapSource _image;
         public BitmapSource Image
@@ -46,7 +49,8 @@ namespace La2Skolopendra
 
         private void CreateNewSelector()
         {
-            var newSelector = new OcrRemovableSelectorViewModel();
+            var newSelector = new OcrRemovableSelectorViewModel(_currentId);
+            _currentId++;
             newSelector.RequestRemove += (sender, args) =>
             {
                 RemovableSelectors.Remove(newSelector);
@@ -106,10 +110,15 @@ namespace La2Skolopendra
                         selector.SelectorViewModel.CurrentY,
                         selector.SelectorViewModel.CurrentWidth,
                         selector.SelectorViewModel.CurrentHeight);
+
                     graphics.DrawRectangle(_borderPen, selector.SelectorViewModel.CurrentX,
                         selector.SelectorViewModel.CurrentY,
                         selector.SelectorViewModel.CurrentWidth,
                         selector.SelectorViewModel.CurrentHeight);
+
+                    graphics.DrawString(selector.Id.ToString(), _drawFont, Brushes.DarkOrange, 
+                            selector.SelectorViewModel.CurrentX + selector.SelectorViewModel.CurrentWidth / 2,
+                            selector.SelectorViewModel.CurrentY + selector.SelectorViewModel.CurrentHeight / 2);
                 }
             }
 
