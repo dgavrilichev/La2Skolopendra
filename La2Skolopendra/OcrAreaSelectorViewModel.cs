@@ -12,16 +12,35 @@ namespace La2Skolopendra
             AreaBoundsChanged?.Invoke(this, e);
         }
 
-        internal OcrAreaSelectorViewModel(Size imageSize)
+        internal OcrAreaSelectorViewModel()
         {
-            MaxHeight = imageSize.Height;
-            MaxWidth = imageSize.Width;
+            MaxHeight = 2000;
+            MaxWidth = 2000;
         }
 
-        public int MaxHeight { get; }
-        public int MaxWidth { get; }
+        private int _maxWidth;
+        public int MaxWidth
+        {
+            get => _maxWidth;
+            set
+            {
+                _maxWidth = value;
+                NotifyPropertyChanged();
+            }
+        }
 
-        private int _currentX;
+        private int _maxHeight;
+        public int MaxHeight
+        {
+            get => _maxHeight;
+            set
+            {
+                _maxHeight = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private int _currentX = 200;
         public int CurrentX
         {
             get => _currentX;
@@ -33,7 +52,7 @@ namespace La2Skolopendra
             }
         }
 
-        private int _currentY;
+        private int _currentY = 100;
         public int CurrentY
         {
             get => _currentY;
@@ -45,7 +64,7 @@ namespace La2Skolopendra
             }
         }
 
-        private int _currentHeight;
+        private int _currentHeight = 30;
         public int CurrentHeight
         {
             get => _currentHeight;
@@ -59,7 +78,7 @@ namespace La2Skolopendra
             }
         }
 
-        private int _currentWidth;
+        private int _currentWidth = 200;
         public int CurrentWidth
         {
             get => _currentWidth;

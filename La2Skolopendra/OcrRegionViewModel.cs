@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Media;
+﻿using System.Drawing;
 using System.Windows.Media.Imaging;
 using CommonLibrary;
 using CommonLibrary.Wpf;
@@ -8,17 +6,21 @@ using JetBrains.Annotations;
 using Brush = System.Drawing.Brush;
 using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
+using Pen = System.Drawing.Pen;
 
 namespace La2Skolopendra
 {
     public sealed class OcrRegionViewModel : ViewModelBase
     {
-        [NotNull] private readonly OcrRegionInfo _ocrRegionInfo = new OcrRegionInfo();
+        [NotNull] private readonly OcrRegionInfo _ocrRegionInfo = new OcrRegionInfo
+        {
+            MyHp = new Rectangle(10, 10, 1, 1),
+            TargetHp = new Rectangle(10, 10, 1, 1)
+        };
 
         private readonly Brush _myHpColor = new SolidBrush(Color.FromArgb(127, 255, 127, 80));
         private readonly Brush _targetHpColor = new SolidBrush(Color.FromArgb(127, 100, 149, 237));
-
-        private BitmapSource _mainWindowImage;
+        private readonly Pen _borderPen = new Pen(Brushes.SpringGreen);
         
         private BitmapSource _image;
         public BitmapSource Image
@@ -75,37 +77,48 @@ namespace La2Skolopendra
             }
         }
 
+        internal OcrRegionViewModel()
+        {
+            TargetHpSelector = new OcrAreaSelectorViewModel();
+            TargetHpSelector.AreaBoundsChanged += TargetHpSelectorOnAreaBoundsChanged;
+
+            MyHpSelector = new OcrAreaSelectorViewModel();
+            MyHpSelector.AreaBoundsChanged += MyHpSelectorOnAreaBoundsChanged;
+        }
+
         internal void SetMainWindowImage(BitmapSource mainWindowImage)
         {
             IsEnabled = mainWindowImage != null;
 
-            _mainWindowImage = mainWindowImage;
-
             if (mainWindowImage != null)
             {
                 Image = mainWindowImage;
+
+                MyHpSelector.MaxHeight = Image.PixelHeight;
+                MyHpSelector.MaxWidth = Image.PixelWidth;
+
+                TargetHpSelector.MaxHeight = Image.PixelHeight;
+                TargetHpSelector.MaxWidth = Image.PixelWidth;
+
                 RegionImage = BitmapHelper.BitmapToBitmapSource(new Bitmap(Image.PixelWidth, Image.PixelHeight));
-                TargetHpSelector = new OcrAreaSelectorViewModel(new Size(mainWindowImage.PixelWidth, mainWindowImage.PixelHeight));
-                TargetHpSelector.AreaBoundsChanged += TargetHpSelectorOnAreaBoundsChanged;
-                MyHpSelector = new OcrAreaSelectorViewModel(new Size(mainWindowImage.PixelWidth, mainWindowImage.PixelHeight));
-                MyHpSelector.AreaBoundsChanged += MyHpSelectorOnAreaBoundsChanged;
+                DrawRegions();
             }
         }
 
         private void MyHpSelectorOnAreaBoundsChanged(object sender, Rectangle e)
         {
             _ocrRegionInfo.MyHp = e;
-            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRectangle());
+            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
         }
 
         private void TargetHpSelectorOnAreaBoundsChanged(object sender, Rectangle e)
         {
             _ocrRegionInfo.TargetHp = e;
-            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRectangle());
+            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
         }
 
         [NotNull]
-        private Bitmap DrawRectangle()
+        private Bitmap DrawRegions()
         {
             var target = new Bitmap(Image.PixelWidth, Image.PixelHeight);
             target.MakeTransparent();
@@ -116,11 +129,19 @@ namespace La2Skolopendra
                     _ocrRegionInfo.MyHp.Y, 
                     _ocrRegionInfo.MyHp.Width,
                     _ocrRegionInfo.MyHp.Height);
-
-                graphics.FillRectangle(_targetHpColor, _ocrRegionInfo.MyHp.X,
+                graphics.DrawRectangle(_borderPen, _ocrRegionInfo.MyHp.X,
                     _ocrRegionInfo.MyHp.Y,
                     _ocrRegionInfo.MyHp.Width,
                     _ocrRegionInfo.MyHp.Height);
+
+                graphics.FillRectangle(_targetHpColor, _ocrRegionInfo.TargetHp.X,
+                    _ocrRegionInfo.TargetHp.Y,
+                    _ocrRegionInfo.TargetHp.Width,
+                    _ocrRegionInfo.TargetHp.Height);
+                graphics.DrawRectangle(_borderPen, _ocrRegionInfo.TargetHp.X,
+                    _ocrRegionInfo.TargetHp.Y,
+                    _ocrRegionInfo.TargetHp.Width,
+                    _ocrRegionInfo.TargetHp.Height);
             }
 
             return target;
