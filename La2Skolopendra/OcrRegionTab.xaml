@@ -46,10 +46,22 @@
                           VerticalScrollBarVisibility="Visible" 
                           HorizontalScrollBarVisibility="Hidden">
                 <StackPanel Orientation="Vertical">
-                    <GroupBox Header="My HP">
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="Coral" Width="10" Height="10"/>
+                                <Label Content="My HP"/>
+                            </StackPanel>
+                        </GroupBox.Header>
                         <la2Skolopendra:OcrAreaSelector/>
                     </GroupBox>
-                    <GroupBox Header="Target HP">
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="CornflowerBlue" Width="10" Height="10"/>
+                                <Label Content="Target HP"/>
+                            </StackPanel>
+                        </GroupBox.Header>
                         <la2Skolopendra:OcrAreaSelector/>
                     </GroupBox>
                 </StackPanel>

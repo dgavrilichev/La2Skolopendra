@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Threading;
+using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 
 namespace La2Skolopendra.Native
 {
     internal static class ScreenshotHelper
     {
+        [DllImport("User32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
+
         [NotNull]
         public static Bitmap GetScreenBitmap(IntPtr hWnd)
         {
-            WindowHelper.SetForegroundWindow(hWnd);    
-            Thread.Sleep(100);
-            WindowHelper.SendMessage(hWnd);
-            Thread.Sleep(100);
             var rect = WindowHelper.GetWindowRect(hWnd);
-
             var width = rect.right - rect.left;
             var height = rect.bottom - rect.top;
+            // Create a bitmap to draw the capture into
+            var bitmap = new Bitmap(width, height);           
+            // Use PrintWindow to draw the window into our bitmap
+            using (var g = Graphics.FromImage(bitmap))
+            {
+                var hdc = g.GetHdc();
+                PrintWindow(hWnd, hdc, 0);
+                g.ReleaseHdc(hdc);
+            }
 
-            var bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-            var graphics = Graphics.FromImage(bmp);
-            graphics.CopyFromScreen(rect.left, rect.top, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
-
-            return bmp;
+            return bitmap;
         }
     }
 }

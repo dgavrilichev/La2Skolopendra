@@ -1,9 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Media.Imaging;
-using CommonLibrary;
+﻿using System.Windows.Media.Imaging;
 using CommonLibrary.Wpf;
-using JetBrains.Annotations;
 
 namespace La2Skolopendra
 {
