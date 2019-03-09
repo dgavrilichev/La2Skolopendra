@@ -25,7 +25,6 @@ namespace La2Skolopendra
         [NotNull] public ObservableCollection<La2WindowViewModel> La2WindowsCollection { get; } = new ObservableCollection<La2WindowViewModel>();
 
         private bool _updateIsEnabled = true;
-
         public bool UpdateIsEnabled
         {
             get => _updateIsEnabled;

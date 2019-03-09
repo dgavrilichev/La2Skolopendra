@@ -8,10 +8,28 @@
         mc:Ignorable="d"
         Title="La2Skolopendra 0.2a" Height="600" Width="900">
     <Grid>
-        <TabControl>
-            <TabItem Header="Main">
-                <la2Skolopendra:MainTab DataContext="{Binding MainTabViewModel}"/>
-            </TabItem>
-        </TabControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="12,2">
+            <Button Content="Run" HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Width="50" />
+            <Button Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Width="50" />
+        </StackPanel>
+
+        <Grid Grid.Row="0">
+            <TabControl>
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Padding" Value="8" />
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="Main">
+                    <la2Skolopendra:MainTab DataContext="{Binding MainTabViewModel}"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </Window>

@@ -7,7 +7,7 @@
              d:DataContext="{d:DesignInstance d:Type=local:MainTabViewModel, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="800">
-    <Grid Margin="10">
+    <Grid Margin="10" Grid.Row="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -21,21 +21,21 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
             <Label Content="Program will switch to La2 windows on Refresh! Wait until operation complete!"/>
             <Button Command="{Binding UpdateCommand}"
-                    IsEnabled="{Binding UpdateIsEnabled}"
-                    Content="Refresh"/>
+                        IsEnabled="{Binding UpdateIsEnabled}"
+                        Content="Refresh"/>
         </StackPanel>
 
         <Label Grid.Row="0" Grid.Column="0" Content="La2 windows:"/>
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3"
-                BorderThickness="1" 
-                BorderBrush="#7734431E"
-                Padding="2,0,0,0" 
-                Background="#FFF1F1EF">
+                    BorderThickness="1" 
+                    BorderBrush="#7734431E"
+                    Padding="2,0,0,0" 
+                    Background="#FFF1F1EF">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="0.2"  RenderingBias="Performance"
-                                  Opacity="0.1" ShadowDepth="2"
-                                  Color="Olive"
-                                  Direction="0" />
+                                      Opacity="0.1" ShadowDepth="2"
+                                      Color="Olive"
+                                      Direction="0" />
             </Border.Effect>
             <Grid>
                 <Grid.Resources>
@@ -47,8 +47,8 @@
                 </Grid.Resources>
 
                 <ScrollViewer Margin="0,3"
-                              VerticalScrollBarVisibility="Visible" 
-                              HorizontalScrollBarVisibility="Disabled">
+                                  VerticalScrollBarVisibility="Visible" 
+                                  HorizontalScrollBarVisibility="Disabled">
                     <ItemsControl ItemsSource="{Binding La2WindowsCollection}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

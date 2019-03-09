@@ -10,6 +10,30 @@ namespace La2Skolopendra
         public BitmapSource Image { get; }
         public string ProcessId { get; }
 
+        private bool _windowIsEnabled = true;
+        public bool WindowIsEnabled
+        {
+            get => _windowIsEnabled;
+            set
+            {
+                if (value == _windowIsEnabled) return;
+                _windowIsEnabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool _windowIsMain = true;
+        public bool WindowIsMain
+        {
+            get => _windowIsMain;
+            set
+            {
+                if (value == _windowIsMain) return;
+                _windowIsMain = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         internal La2WindowViewModel([NotNull] BitmapSource bitmapSource, string processId)
         {
             if(string.IsNullOrEmpty(processId)) throw new ArgumentNullException(processId);
