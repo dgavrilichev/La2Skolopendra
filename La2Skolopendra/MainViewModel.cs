@@ -37,7 +37,9 @@ namespace La2Skolopendra
         {
             if(e == null) throw new ArgumentNullException(nameof(e));
 
-            OcrRegionViewModel.SetMainWindowImage(e.Single(w => w.IsMain).Image);
+            var main = e.SingleOrDefault(w => w.IsMain);
+            OcrRegionViewModel.SetMainWindowImage(main?.Image);
+            OcrExcludeViewModel.SetMainWindowImage(main?.Image);
         }
     }
 }
