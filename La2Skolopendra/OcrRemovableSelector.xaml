@@ -7,7 +7,8 @@
              d:DataContext="{d:DesignInstance d:Type=la2Skolopendra:OcrRemovableSelectorViewModel, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <la2Skolopendra:OcrAreaSelector />
+        <Button Content="Remove" Width="80" HorizontalAlignment="Left"/>
+    </StackPanel>
 </UserControl>
