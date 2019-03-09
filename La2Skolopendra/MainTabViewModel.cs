@@ -101,7 +101,12 @@ namespace La2Skolopendra
 
         private void WindowOnSetAsMain(object sender, EventArgs e)
         {
-            
+            var realSender = (La2WindowViewModel) sender;
+            foreach (var la2WindowViewModel in La2WindowsCollection)
+            {
+                if(realSender != la2WindowViewModel)
+                    la2WindowViewModel.SetAsSlave();
+            }
         }
 
         private void WindowOnIsEnabledChanged(object sender, bool e)
