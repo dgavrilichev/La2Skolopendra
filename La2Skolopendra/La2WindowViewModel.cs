@@ -111,11 +111,11 @@ namespace La2Skolopendra
 
         internal void SetAsMainAction()
         {
-            OnSetAsMain();
             IsMain = true;
             SetAsMainEnabled = false;
             CanBeDisabled = false;
             ShowProcessId();
+            OnSetAsMain();
         }
 
         internal void SetAsSlave()

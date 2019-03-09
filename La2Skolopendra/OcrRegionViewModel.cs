@@ -9,7 +9,7 @@ namespace La2Skolopendra
 {
     public sealed class OcrRegionViewModel : ViewModelBase
     {
-        private Bitmap _mainWindowImage;
+        private BitmapSource _mainWindowImage;
 
         private BitmapSource _image;
         public BitmapSource Image
@@ -33,14 +33,14 @@ namespace La2Skolopendra
             }
         }
 
-        internal void SetMainWindowImage(Bitmap mainWindowImage)
+        internal void SetMainWindowImage(BitmapSource mainWindowImage)
         {
             IsEnabled = mainWindowImage != null;
 
             _mainWindowImage = mainWindowImage;
 
             if(mainWindowImage != null)
-                Image = BitmapHelper.BitmapToBitmapSource(mainWindowImage);
+                Image = mainWindowImage;
         }
     }
 }
