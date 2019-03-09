@@ -33,7 +33,7 @@
                     <la2Skolopendra:OcrRegionTab DataContext="{Binding OcrRegionViewModel}"/>
                 </TabItem>
                 <TabItem Header="Interface exclude zones">
-                    <la2Skolopendra:OcrRegionTab DataContext="{Binding OcrRegionViewModel}"/>
+                    <la2Skolopendra:OcrExcludeTab DataContext="{Binding OcrExcludeViewModel}"/>
                 </TabItem>
             </TabControl>
         </Grid>

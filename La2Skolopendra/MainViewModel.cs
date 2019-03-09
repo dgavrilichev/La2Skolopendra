@@ -19,6 +19,7 @@ namespace La2Skolopendra
 
         [NotNull] public MainTabViewModel MainTabViewModel { get; }
         [NotNull] public OcrRegionViewModel OcrRegionViewModel { get; }
+        [NotNull] public OcrExcludeViewModel OcrExcludeViewModel { get; }
 
         internal MainViewModel([NotNull] ILogger logger)
         {
@@ -29,6 +30,7 @@ namespace La2Skolopendra
             MainTabViewModel.WindowsReload += OnWindowsReload;
             
             OcrRegionViewModel = new OcrRegionViewModel();
+            OcrExcludeViewModel = new OcrExcludeViewModel();
         }
 
         private void OnWindowsReload(object sender, [NotNull] List<WindowInfo> e)
