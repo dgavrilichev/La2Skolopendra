@@ -51,6 +51,8 @@ namespace La2Skolopendra
             get => _currentHeight;
             set
             {
+                if (value < 1) value = 1;
+
                 _currentHeight = value;
                 OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
                 NotifyPropertyChanged();
@@ -63,6 +65,8 @@ namespace La2Skolopendra
             get => _currentWidth;
             set
             {
+                if (value < 1) value = 1;
+
                 _currentWidth = value;
                 OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
                 NotifyPropertyChanged();

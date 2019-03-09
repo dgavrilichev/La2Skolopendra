@@ -7,6 +7,7 @@ using CommonLibrary.Wpf;
 using JetBrains.Annotations;
 using Brush = System.Drawing.Brush;
 using Brushes = System.Drawing.Brushes;
+using Color = System.Drawing.Color;
 
 namespace La2Skolopendra
 {
@@ -14,8 +15,8 @@ namespace La2Skolopendra
     {
         [NotNull] private readonly OcrRegionInfo _ocrRegionInfo = new OcrRegionInfo();
 
-        private readonly Brush _myHpColor = Brushes.Coral;
-        private readonly Brush _targetHpColor = Brushes.CornflowerBlue;
+        private readonly Brush _myHpColor = new SolidBrush(Color.FromArgb(127, 255, 127, 80));
+        private readonly Brush _targetHpColor = new SolidBrush(Color.FromArgb(127, 100, 149, 237));
 
         private BitmapSource _mainWindowImage;
         
