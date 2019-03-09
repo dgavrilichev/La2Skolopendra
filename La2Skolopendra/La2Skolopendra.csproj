@@ -105,6 +105,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OcrAreaSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OcrRegionTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,6 +117,9 @@
   <ItemGroup>
     <Compile Include="Native\ScreenshotHelper.cs" />
     <Compile Include="Native\WindowHelper.cs" />
+    <Compile Include="OcrAreaSelector.xaml.cs">
+      <DependentUpon>OcrAreaSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OcrRegionTab.xaml.cs">
       <DependentUpon>OcrRegionTab.xaml</DependentUpon>
     </Compile>
