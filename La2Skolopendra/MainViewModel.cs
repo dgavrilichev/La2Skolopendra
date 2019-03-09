@@ -25,6 +25,7 @@ namespace La2Skolopendra
 
             MainTabViewModel = new MainTabViewModel(logger);
             MainTabViewModel.RequestActivateWindow += (sender, args) => OnRequestActivateWindow();
+            
             OcrRegionViewModel = new OcrRegionViewModel();
         }
     }

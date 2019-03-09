@@ -22,12 +22,13 @@ namespace La2Skolopendra
             RequestActivateWindow?.Invoke(this, EventArgs.Empty);
         }
 
-        internal event EventHandler<List<(IntPtr hWnd, bool isMain)>> UpdateWindowTabs;
-        private void OnUpdateWindowTabs([NotNull] List<(IntPtr hWnd, bool isMain)> e)
+        internal event EventHandler<List<WindowInfo>> WindowsReload;
+
+        private void OnWindowsReload([NotNull] List<WindowInfo> e)
         {
             if(e == null) throw new ArgumentNullException(nameof(e));
 
-            UpdateWindowTabs?.Invoke(this, e);
+            WindowsReload?.Invoke(this, e);
         }
 
         [NotNull] private readonly ILogger _logger;
