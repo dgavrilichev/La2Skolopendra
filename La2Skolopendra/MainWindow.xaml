@@ -26,8 +26,12 @@
                         <Setter Property="Padding" Value="8" />
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="Main" DataContext="{Binding MainTabViewModel}"/>
-                <TabItem Header="OCR" DataContext="{Binding OcrRegionViewModel}"/>
+                <TabItem Header="Main">
+                    <la2Skolopendra:MainTab  DataContext="{Binding MainTabViewModel}"/>
+                </TabItem>
+                <TabItem Header="OCR">
+                    <la2Skolopendra:OcrRegionTab DataContext="{Binding OcrRegionViewModel}"/>
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>
