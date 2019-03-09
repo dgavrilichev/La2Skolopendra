@@ -1,10 +1,17 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using CommonLibrary.Wpf;
 
 namespace La2Skolopendra
 {
     public sealed class OcrAreaSelectorViewModel : ViewModelBase
     {
+        internal event EventHandler<Rectangle> AreaBoundsChanged;
+        private void OnAreaBoundsChanged(Rectangle e)
+        {
+            AreaBoundsChanged?.Invoke(this, e);
+        }
+
         internal OcrAreaSelectorViewModel(Size imageSize)
         {
             MaxHeight = imageSize.Height;
@@ -21,6 +28,7 @@ namespace La2Skolopendra
             set
             {
                 _currentX = value;
+                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
                 NotifyPropertyChanged();
             }
         }
@@ -32,6 +40,7 @@ namespace La2Skolopendra
             set
             {
                 _currentY = value;
+                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
                 NotifyPropertyChanged();
             }
         }
@@ -43,6 +52,7 @@ namespace La2Skolopendra
             set
             {
                 _currentHeight = value;
+                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
                 NotifyPropertyChanged();
             }
         }
@@ -54,6 +64,7 @@ namespace La2Skolopendra
             set
             {
                 _currentWidth = value;
+                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
                 NotifyPropertyChanged();
             }
         }
