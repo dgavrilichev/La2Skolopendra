@@ -14,8 +14,8 @@ namespace La2Skolopendra
     {
         [NotNull] private readonly OcrRegionInfo _ocrRegionInfo = new OcrRegionInfo
         {
-            MyHp = new Rectangle(10, 10, 1, 1),
-            TargetHp = new Rectangle(10, 10, 1, 1)
+            MyHp = new Rectangle(100, 200, 100, 10),
+            TargetHp = new Rectangle(200, 200, 100, 10)
         };
 
         private readonly Brush _myHpColor = new SolidBrush(Color.FromArgb(127, 255, 127, 80));
@@ -100,8 +100,8 @@ namespace La2Skolopendra
 
                 TargetHpSelector.MaxHeight = Image.PixelHeight;
                 TargetHpSelector.MaxWidth = Image.PixelWidth;
-          
-                DrawRegions();
+
+                RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
             }
         }
 
