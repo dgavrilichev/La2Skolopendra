@@ -83,6 +83,10 @@
     </Compile>
     <Compile Include="OcrExcludeViewModel.cs" />
     <Compile Include="OcrRegionInfo.cs" />
+    <Compile Include="OcrRemovableSelector.xaml.cs">
+      <DependentUpon>OcrRemovableSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OcrRemovableSelectorViewModel.cs" />
     <Compile Include="WindowInfo.cs" />
     <Page Include="La2WindowControl.xaml">
       <SubType>Designer</SubType>
@@ -122,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OcrRegionTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OcrRemovableSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

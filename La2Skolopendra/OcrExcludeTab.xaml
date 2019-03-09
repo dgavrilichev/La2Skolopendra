@@ -8,6 +8,63 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Margin="3"
+                BorderThickness="1" 
+                BorderBrush="#7734431E"
+                Padding="2,0,0,0" 
+                Background="#FFF1F1EF">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="0.2"  RenderingBias="Performance"
+                                  Opacity="0.1" ShadowDepth="2"
+                                  Color="Olive"
+                                  Direction="0" />
+            </Border.Effect>
+            <ScrollViewer Margin="0,3"
+                          VerticalScrollBarVisibility="Visible" 
+                          HorizontalScrollBarVisibility="Visible">
+                <Grid>
+                    <Image Stretch="None"
+                           Source="{Binding Image}" />
+                    <Image Stretch="None"
+                           Source="{Binding RegionImage}" />
+                </Grid>
+            </ScrollViewer>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="1" Margin="3"
+                    BorderThickness="1" 
+                    BorderBrush="#7734431E"
+                    Padding="2,0,0,0" 
+                    Background="#FFF1F1EF">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="0.2"  RenderingBias="Performance"
+                                  Opacity="0.1" ShadowDepth="2"
+                                  Color="Olive"
+                                  Direction="0" />
+            </Border.Effect>
+
+            <ScrollViewer Margin="0,3"
+                          VerticalScrollBarVisibility="Visible" 
+                          HorizontalScrollBarVisibility="Hidden">
+                <ScrollViewer.Resources>
+                    <ResourceDictionary>
+                        <DataTemplate DataType="{x:Type la2Skolopendra:OcrAreaSelectorViewModel}">
+                            <la2Skolopendra:OcrAreaSelector />
+                        </DataTemplate>
+                    </ResourceDictionary>
+                </ScrollViewer.Resources>
+
+                <ItemsControl ItemsSource="{Binding ExcludeRectangles}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </UserControl>
