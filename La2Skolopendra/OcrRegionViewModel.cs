@@ -93,14 +93,14 @@ namespace La2Skolopendra
             if (mainWindowImage != null)
             {
                 Image = mainWindowImage;
+                RegionImage = BitmapHelper.BitmapToBitmapSource(new Bitmap(Image.PixelWidth, Image.PixelHeight));
 
                 MyHpSelector.MaxHeight = Image.PixelHeight;
                 MyHpSelector.MaxWidth = Image.PixelWidth;
 
                 TargetHpSelector.MaxHeight = Image.PixelHeight;
                 TargetHpSelector.MaxWidth = Image.PixelWidth;
-
-                RegionImage = BitmapHelper.BitmapToBitmapSource(new Bitmap(Image.PixelWidth, Image.PixelHeight));
+          
                 DrawRegions();
             }
         }
