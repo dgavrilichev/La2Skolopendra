@@ -45,7 +45,25 @@ namespace La2Skolopendra
             {
                 if (value == _windowIsEnabled) return;
                 _windowIsEnabled = value;
+
+                if (!value)
+                    SetAsMainEnabled = false;
+                else
+                    SetAsMainEnabled = !IsMain;
+
                 OnIsEnabledChanged(value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool _canBeDisabled = true;
+        public bool CanBeDisabled
+        {
+            get => _canBeDisabled;
+            set
+            {
+                if (value == _canBeDisabled) return;
+                _canBeDisabled = value;
                 NotifyPropertyChanged();
             }
         }
@@ -96,6 +114,7 @@ namespace La2Skolopendra
             OnSetAsMain();
             IsMain = true;
             SetAsMainEnabled = false;
+            CanBeDisabled = false;
             ShowProcessId();
         }
 
@@ -103,6 +122,7 @@ namespace La2Skolopendra
         {
             IsMain = false;
             SetAsMainEnabled = true;
+            CanBeDisabled = true;
             ShowProcessId();
         }
 

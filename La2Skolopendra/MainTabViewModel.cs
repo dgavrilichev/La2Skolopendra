@@ -23,7 +23,6 @@ namespace La2Skolopendra
         }
 
         internal event EventHandler<List<WindowInfo>> WindowsReload;
-
         private void OnWindowsReload([NotNull] List<WindowInfo> e)
         {
             if(e == null) throw new ArgumentNullException(nameof(e));
@@ -103,16 +102,39 @@ namespace La2Skolopendra
         private void WindowOnSetAsMain(object sender, EventArgs e)
         {
             var realSender = (La2WindowViewModel) sender;
-            foreach (var la2WindowViewModel in La2WindowsCollection)
+            foreach (var la2WindowViewModel in La2WindowsCollection.Where(w => w.WindowIsEnabled).ToList())
             {
-                if(realSender != la2WindowViewModel)
-                    la2WindowViewModel.SetAsSlave();
+                if (realSender != la2WindowViewModel)
+                {
+                    la2WindowViewModel.SetAsSlave();                 
+                }             
             }
+
+            ProcessReload();
+        }
+
+        private void ProcessReload()
+        {
+            //var windowsInfo = new List<WindowInfo>();
+
+            //var realSender = (La2WindowViewModel)sender;
+            //foreach (var la2WindowViewModel in La2WindowsCollection)
+            //{
+            //    if (realSender != la2WindowViewModel)
+            //    {
+            //        la2WindowViewModel.SetAsSlave();
+            //        windowsInfo.Add(new WindowInfo(la2WindowViewModel.HWnd, false, la2WindowViewModel.Image));
+            //    }
+            //    else
+            //        windowsInfo.Add(new WindowInfo(la2WindowViewModel.HWnd, true, la2WindowViewModel.Image));
+            //}
+
+            //OnWindowsReload(windowsInfo);
         }
 
         private void WindowOnIsEnabledChanged(object sender, bool e)
         {
-            
+            ProcessReload();
         }
     }
 }
