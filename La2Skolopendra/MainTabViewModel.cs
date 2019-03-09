@@ -25,7 +25,6 @@ namespace La2Skolopendra
         [NotNull] public ObservableCollection<La2WindowViewModel> La2WindowsCollection { get; } = new ObservableCollection<La2WindowViewModel>();
 
         private bool _updateIsEnabled = true;
-        [NotNull] private readonly SynchronizationContext _uiContext;
 
         public bool UpdateIsEnabled
         {
@@ -41,7 +40,6 @@ namespace La2Skolopendra
         internal MainTabViewModel([NotNull] ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _uiContext = SynchronizationContext.Current;
         }
 
         public ICommand UpdateCommand
