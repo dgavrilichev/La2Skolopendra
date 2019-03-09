@@ -8,7 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
-        <la2Skolopendra:OcrAreaSelector />
-        <Button Content="Remove" Width="80" HorizontalAlignment="Left"/>
+        <la2Skolopendra:OcrAreaSelector DataContext="{Binding SelectorViewModel}" />
+        <Button Content="Remove" Command="{Binding RemoveCommand}"
+                Width="80" HorizontalAlignment="Left"/>
     </StackPanel>
 </UserControl>

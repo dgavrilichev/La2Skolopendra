@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Input;
 using CommonLibrary.Wpf;
 
 namespace La2Skolopendra
@@ -34,6 +35,11 @@ namespace La2Skolopendra
         {
             SelectorViewModel = new OcrAreaSelectorViewModel();
             SelectorViewModel.AreaBoundsChanged += (sender, rectangle) => OnAreaBoundsChanged(rectangle);
+        }
+
+        public ICommand RemoveCommand
+        {
+            get { return new RelayCommand(o => OnRequestRemove()); }
         }
     }
 }

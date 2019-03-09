@@ -46,25 +46,29 @@
                                   Direction="0" />
             </Border.Effect>
 
-            <ScrollViewer Margin="0,3"
-                          VerticalScrollBarVisibility="Visible" 
-                          HorizontalScrollBarVisibility="Hidden">
-                <ScrollViewer.Resources>
-                    <ResourceDictionary>
-                        <DataTemplate DataType="{x:Type la2Skolopendra:OcrAreaSelectorViewModel}">
-                            <la2Skolopendra:OcrAreaSelector />
-                        </DataTemplate>
-                    </ResourceDictionary>
-                </ScrollViewer.Resources>
+            <StackPanel Orientation="Vertical">
+                <Button Command="{Binding AddExcludeRegionCommand}"
+                    Content="Add new exclude region"/>
+                <ScrollViewer Margin="0,3"
+                              VerticalScrollBarVisibility="Visible" 
+                              HorizontalScrollBarVisibility="Hidden">
+                    <ScrollViewer.Resources>
+                        <ResourceDictionary>
+                            <DataTemplate DataType="{x:Type la2Skolopendra:OcrRemovableSelectorViewModel}">
+                                <la2Skolopendra:OcrRemovableSelector />
+                            </DataTemplate>
+                        </ResourceDictionary>
+                    </ScrollViewer.Resources>
 
-                <ItemsControl ItemsSource="{Binding ExcludeRectangles}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding RemovableSelectors}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>
