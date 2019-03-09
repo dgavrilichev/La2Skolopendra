@@ -13,7 +13,7 @@ namespace La2Skolopendra
         internal La2WindowViewModel([NotNull] BitmapSource bitmapSource, string processId)
         {
             if(string.IsNullOrEmpty(processId)) throw new ArgumentNullException(processId);
-            Image = bitmapSource;// ?? throw new ArgumentNullException(nameof(bitmapSource));
+            Image = bitmapSource ?? throw new ArgumentNullException(nameof(bitmapSource));
             ProcessId = processId;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading;
 using JetBrains.Annotations;
 
 namespace La2Skolopendra.Native
@@ -10,8 +11,10 @@ namespace La2Skolopendra.Native
         [NotNull]
         public static Bitmap GetScreenBitmap(IntPtr hWnd)
         {
-            WindowHelper.SetForegroundWindow(hWnd);
+            WindowHelper.SetForegroundWindow(hWnd);    
+            Thread.Sleep(200);
             WindowHelper.SendMessage(hWnd);
+            Thread.Sleep(200);
             var rect = WindowHelper.GetWindowRect(hWnd);
 
             var width = rect.right - rect.left;

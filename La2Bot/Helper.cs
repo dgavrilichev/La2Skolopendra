@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace La2Bot
 {
-    internal static class Helper
+    public static class Helper
     {
         [DllImport("User32.dll")]
         static extern int SetForegroundWindow(IntPtr hWnd);

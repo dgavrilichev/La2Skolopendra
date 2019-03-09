@@ -140,6 +140,10 @@
       <Project>{6785009F-F061-4F49-8E8E-A800E00E2306}</Project>
       <Name>CommonLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\La2Bot\La2Bot.csproj">
+      <Project>{31CCB743-DDA8-4EE7-8EBB-4A21B24FDE25}</Project>
+      <Name>La2Bot</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

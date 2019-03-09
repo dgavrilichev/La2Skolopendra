@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using CommonLibrary;
 using CommonLibrary.Logging;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
+using La2Bot;
 using La2Skolopendra.Native;
 
 namespace La2Skolopendra
@@ -43,34 +48,24 @@ namespace La2Skolopendra
 
         public ICommand UpdateCommand
         {
-            get { return new RelayCommand(o => Task.Run(() => LoadWindows())); }
+            get { return new RelayCommand(o => LoadWindows()); }
         }
 
-        private async void LoadWindows()
-        {
-            await LoadWindowsAsync();
-        }
-
-        private async Task LoadWindowsAsync()
+        private void LoadWindows()
         {
             UpdateIsEnabled = false;
-
-            await Application.Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Background,
-                new Action(() => {
-                   La2WindowsCollection.Clear();
-                }));
-
+            La2WindowsCollection.Clear();
+          
             _logger.Info("Now loading La2 windows..");
-            var la2Windows = WindowHelper.GetWindowsByName(WindowName).ToList();
 
+            var la2Windows = WindowHelper.GetWindowByName(WindowName);
             foreach (var la2Window in la2Windows)
             {
-                await Application.Current.Dispatcher.BeginInvoke(
-                    DispatcherPriority.Background,
-                    new Action(() => {
-                        La2WindowsCollection.Add(new La2WindowViewModel(null, la2Window.Id.ToString()));
-                    }));                
+                var screenshot = ScreenshotHelper.GetScreenBitmap(la2Window);
+                var source = BitmapHelper.BitmapToBitmapSource(screenshot);
+                source.Freeze();
+                La2WindowsCollection.Add(new La2WindowViewModel(source, "ss"));
+                Thread.Sleep(2000);
             }
 
             UpdateIsEnabled = true;
