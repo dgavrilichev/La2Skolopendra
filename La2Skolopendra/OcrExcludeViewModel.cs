@@ -117,8 +117,8 @@ namespace La2Skolopendra
                         selector.SelectorViewModel.CurrentHeight);
 
                     graphics.DrawString(selector.Id.ToString(), _drawFont, Brushes.DarkOrange, 
-                            selector.SelectorViewModel.CurrentX + selector.SelectorViewModel.CurrentWidth / 2,
-                            selector.SelectorViewModel.CurrentY + selector.SelectorViewModel.CurrentHeight / 2);
+                        selector.SelectorViewModel.CurrentX + selector.SelectorViewModel.CurrentWidth / 2,
+                        selector.SelectorViewModel.CurrentY + selector.SelectorViewModel.CurrentHeight / 2 - 10);
                 }
             }
 

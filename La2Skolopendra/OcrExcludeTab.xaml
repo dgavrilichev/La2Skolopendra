@@ -46,7 +46,7 @@
                                   Direction="0" />
             </Border.Effect>
 
-            <Grid>
+            <Grid MinWidth="250">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -65,7 +65,7 @@
                         </ResourceDictionary>
                     </ScrollViewer.Resources>
 
-                    <ItemsControl ItemsSource="{Binding RemovableSelectors}">
+                    <ItemsControl ItemsSource="{Binding RemovableSelectors}"> 
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />

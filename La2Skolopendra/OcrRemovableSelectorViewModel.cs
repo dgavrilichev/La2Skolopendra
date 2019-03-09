@@ -19,7 +19,7 @@ namespace La2Skolopendra
             RequestRemove?.Invoke(this, EventArgs.Empty);
         }
 
-        internal int Id { get; }
+        public int Id { get; }
 
         private OcrAreaSelectorViewModel _selectorViewModel;
         public OcrAreaSelectorViewModel SelectorViewModel
