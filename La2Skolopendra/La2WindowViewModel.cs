@@ -20,12 +20,22 @@ namespace La2Skolopendra
             SetAsMain?.Invoke(this, EventArgs.Empty);
         }
 
-        private readonly IntPtr _hWnd;
+
         private readonly string _processId;
         private bool _isMain;
 
-        public BitmapSource Image { get; }
- 
+        private BitmapSource _image;
+        public BitmapSource Image
+        {
+            get => _image;
+            set
+            {
+                _image = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        internal IntPtr HWnd { get; }
 
         private bool _windowIsEnabled = true;
         public bool WindowIsEnabled
@@ -69,7 +79,7 @@ namespace La2Skolopendra
             if(string.IsNullOrEmpty(processId)) throw new ArgumentNullException(processId);
             Image = bitmapSource ?? throw new ArgumentNullException(nameof(bitmapSource));
             _processId = processId;
-            _hWnd = hWnd;
+            HWnd = hWnd;
             SetAsSlave();
         }
 

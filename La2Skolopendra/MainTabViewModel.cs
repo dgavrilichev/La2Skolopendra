@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Windows.Input;
 using CommonLibrary;
@@ -58,22 +59,53 @@ namespace La2Skolopendra
         private void LoadWindows()
         {
             UpdateIsEnabled = false;
-            La2WindowsCollection.Clear();
           
             _logger.Info("Now loading La2 windows..");
 
+            var existedWindows = new List<La2WindowViewModel>();
             var la2Windows = WindowHelper.GetWindowByName(WindowName);
+
             foreach (var la2Window in la2Windows)
             {
                 var screenshot = ScreenshotHelper.GetScreenBitmap(la2Window.handle);
                 var source = BitmapHelper.BitmapToBitmapSource(screenshot);
                 source.Freeze();
-                La2WindowsCollection.Add(new La2WindowViewModel(source, la2Window.id, la2Window.handle));
+
+                var existed = La2WindowsCollection.SingleOrDefault(w => w.HWnd == la2Window.handle);
+                if (existed == null)
+                {
+                    var viewModel = new La2WindowViewModel(source, la2Window.id, la2Window.handle);
+                    viewModel.IsEnabledChanged += WindowOnIsEnabledChanged;
+                    viewModel.SetAsMain += WindowOnSetAsMain;
+                    La2WindowsCollection.Add(viewModel);
+                }
+                else
+                {
+                    existed.Image = source;
+                    existedWindows.Add(existed);
+                }
+
                 Thread.Sleep(100);
+            }
+
+            var closed = La2WindowsCollection.Where(w => !existedWindows.Contains(w)).ToList();
+            foreach (var la2WindowViewModel in closed)
+            {
+                La2WindowsCollection.Remove(la2WindowViewModel);
             }
 
             OnRequestActivateWindow();
             UpdateIsEnabled = true;
+        }
+
+        private void WindowOnSetAsMain(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void WindowOnIsEnabledChanged(object sender, bool e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
