@@ -14,7 +14,7 @@
                     VerticalAlignment="Center"
                     Value="{Binding CurrentX}"
                     Maximum="{Binding MaxWidth}" Minimum="0" Width="100"/>
-            <TextBox Text="{Binding CurrentX}" Width="50" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding CurrentX, UpdateSourceTrigger=PropertyChanged}" Width="50" VerticalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
@@ -23,7 +23,7 @@
                     VerticalAlignment="Center"
                     Value="{Binding CurrentY}"
                     Maximum="{Binding MaxHeight}" Minimum="0" Width="100"/>
-            <TextBox Text="{Binding CurrentY}"  Width="50" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding CurrentY, UpdateSourceTrigger=PropertyChanged}"  Width="50" VerticalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
@@ -32,7 +32,7 @@
                     VerticalAlignment="Center"
                     Value="{Binding CurrentWidth}"
                     Maximum="{Binding MaxWidth}" Minimum="0" Width="100"/>
-            <TextBox Text="{Binding CurrentWidth}" Width="50" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding CurrentWidth, UpdateSourceTrigger=PropertyChanged}" Width="50" VerticalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
@@ -41,7 +41,7 @@
                     VerticalAlignment="Center"
                     Value="{Binding CurrentHeight}"
                     Maximum="{Binding MaxHeight}" Minimum="0" Width="100"/>
-            <TextBox Text="{Binding CurrentHeight}" Width="50" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding CurrentHeight, UpdateSourceTrigger=PropertyChanged}" Width="50" VerticalAlignment="Center"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

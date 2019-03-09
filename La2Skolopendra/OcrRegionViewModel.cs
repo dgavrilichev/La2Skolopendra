@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.Drawing;
+using System.Windows.Media.Imaging;
 using CommonLibrary.Wpf;
 
 namespace La2Skolopendra
@@ -29,14 +30,40 @@ namespace La2Skolopendra
             }
         }
 
+        private OcrAreaSelectorViewModel _targetHpSelector;
+        public OcrAreaSelectorViewModel TargetHpSelector
+        {
+            get => _targetHpSelector;
+            set
+            {
+                _targetHpSelector = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private OcrAreaSelectorViewModel _myHpSelector;
+        public OcrAreaSelectorViewModel MyHpSelector
+        {
+            get => _myHpSelector;
+            set
+            {
+                _myHpSelector = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         internal void SetMainWindowImage(BitmapSource mainWindowImage)
         {
             IsEnabled = mainWindowImage != null;
 
             _mainWindowImage = mainWindowImage;
 
-            if(mainWindowImage != null)
+            if (mainWindowImage != null)
+            {
                 Image = mainWindowImage;
+                TargetHpSelector = new OcrAreaSelectorViewModel(new Size(mainWindowImage.PixelWidth, mainWindowImage.PixelHeight));
+                MyHpSelector = new OcrAreaSelectorViewModel(new Size(mainWindowImage.PixelWidth, mainWindowImage.PixelHeight));
+            }
         }
     }
 }

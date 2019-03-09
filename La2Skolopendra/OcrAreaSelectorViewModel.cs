@@ -3,7 +3,7 @@ using CommonLibrary.Wpf;
 
 namespace La2Skolopendra
 {
-    internal sealed class OcrAreaSelectorViewModel : ViewModelBase
+    public sealed class OcrAreaSelectorViewModel : ViewModelBase
     {
         internal OcrAreaSelectorViewModel(Size imageSize)
         {

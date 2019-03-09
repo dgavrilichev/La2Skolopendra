@@ -53,7 +53,7 @@
                                 <Label Content="My HP"/>
                             </StackPanel>
                         </GroupBox.Header>
-                        <la2Skolopendra:OcrAreaSelector/>
+                        <la2Skolopendra:OcrAreaSelector DataContext="{Binding MyHpSelector}"/>
                     </GroupBox>
                     <GroupBox>
                         <GroupBox.Header>
@@ -62,7 +62,7 @@
                                 <Label Content="Target HP"/>
                             </StackPanel>
                         </GroupBox.Header>
-                        <la2Skolopendra:OcrAreaSelector/>
+                        <la2Skolopendra:OcrAreaSelector DataContext="{Binding TargetHpSelector}"/>
                     </GroupBox>
                 </StackPanel>
             </ScrollViewer>
