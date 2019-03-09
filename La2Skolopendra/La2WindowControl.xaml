@@ -7,22 +7,24 @@
              d:DataContext="{d:DesignInstance d:Type=local:La2WindowViewModel, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0"
-                    Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Process Id:"/>
-                <Label Content="{Binding ProcessId}"/>
+            <StackPanel Grid.Row="0" Grid.Column="0"
+                        Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Process Id:"/>
+                    <Label Content="{Binding ProcessId}"/>
+                </StackPanel>
+                <Image Width="512" Height="384"
+                       Stretch="UniformToFill"
+                    Source="{Binding Image}" />
             </StackPanel>
-            <Image Width="256" Height="256"
-                   Stretch="UniformToFill"
-                Source="{Binding Image}" />
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>
