@@ -12,13 +12,47 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Margin="3"
+                BorderThickness="1" 
+                BorderBrush="#7734431E"
+                Padding="2,0,0,0" 
+                Background="#FFF1F1EF">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="0.2"  RenderingBias="Performance"
+                                  Opacity="0.1" ShadowDepth="2"
+                                  Color="Olive"
+                                  Direction="0" />
+            </Border.Effect>
+            <ScrollViewer Margin="0,3"
+                          VerticalScrollBarVisibility="Visible" 
+                          HorizontalScrollBarVisibility="Visible">
 
-        <ScrollViewer Margin="0,3"
-                      VerticalScrollBarVisibility="Visible" 
-                      HorizontalScrollBarVisibility="Visible">
+            </ScrollViewer>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="1" Margin="3"
+                    BorderThickness="1" 
+                    BorderBrush="#7734431E"
+                    Padding="2,0,0,0" 
+                    Background="#FFF1F1EF">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="0.2"  RenderingBias="Performance"
+                                  Opacity="0.1" ShadowDepth="2"
+                                  Color="Olive"
+                                  Direction="0" />
+            </Border.Effect>
 
-        </ScrollViewer>
-
-
+            <ScrollViewer Margin="0,3"
+                          VerticalScrollBarVisibility="Visible" 
+                          HorizontalScrollBarVisibility="Hidden">
+                <StackPanel Orientation="Vertical">
+                    <GroupBox Header="My HP">
+                        <la2Skolopendra:OcrAreaSelector/>
+                    </GroupBox>
+                    <GroupBox Header="Target HP">
+                        <la2Skolopendra:OcrAreaSelector/>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </UserControl>
