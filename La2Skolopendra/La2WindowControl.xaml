@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                 <Label Content="Process Id:"/>
-                <Label Content="{Binding ProcessId}"/>
+                <Label Content="{Binding ProcessIdDisplay}"/>
             </StackPanel>
             <Image Grid.Row="1" Grid.Column="0"
                     Width="512" Height="384"
@@ -30,10 +30,7 @@
                 <CheckBox  VerticalContentAlignment="Center" IsChecked="{Binding WindowIsEnabled}">
                     <Label Content="Enable for bot" VerticalAlignment="Center"/>
                 </CheckBox>
-                <CheckBox  VerticalContentAlignment="Center" IsChecked="{Binding WindowIsMain}">
-                    <Label Content="Set as main window"
-                           VerticalAlignment="Center"/>
-                </CheckBox>
+                <Button Content="Set as main window" Width="120" Command="{Binding SetAsMainCommand}"/>
             </StackPanel>
         </Grid>
     </Border>

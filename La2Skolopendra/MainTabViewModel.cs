@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows.Input;
@@ -18,6 +19,14 @@ namespace La2Skolopendra
         private void OnRequestActivateWindow()
         {
             RequestActivateWindow?.Invoke(this, EventArgs.Empty);
+        }
+
+        internal event EventHandler<List<(IntPtr hWnd, bool isMain)>> UpdateWindowTabs;
+        private void OnUpdateWindowTabs([NotNull] List<(IntPtr hWnd, bool isMain)> e)
+        {
+            if(e == null) throw new ArgumentNullException(nameof(e));
+
+            UpdateWindowTabs?.Invoke(this, e);
         }
 
         [NotNull] private readonly ILogger _logger;
@@ -59,7 +68,7 @@ namespace La2Skolopendra
                 var screenshot = ScreenshotHelper.GetScreenBitmap(la2Window.handle);
                 var source = BitmapHelper.BitmapToBitmapSource(screenshot);
                 source.Freeze();
-                La2WindowsCollection.Add(new La2WindowViewModel(source, la2Window.id));
+                La2WindowsCollection.Add(new La2WindowViewModel(source, la2Window.id, la2Window.handle));
                 Thread.Sleep(100);
             }
 
