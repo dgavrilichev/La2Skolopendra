@@ -115,21 +115,16 @@ namespace La2Skolopendra
 
         private void ProcessReload()
         {
-            //var windowsInfo = new List<WindowInfo>();
+            var windowsInfo = new List<WindowInfo>();
 
-            //var realSender = (La2WindowViewModel)sender;
-            //foreach (var la2WindowViewModel in La2WindowsCollection)
-            //{
-            //    if (realSender != la2WindowViewModel)
-            //    {
-            //        la2WindowViewModel.SetAsSlave();
-            //        windowsInfo.Add(new WindowInfo(la2WindowViewModel.HWnd, false, la2WindowViewModel.Image));
-            //    }
-            //    else
-            //        windowsInfo.Add(new WindowInfo(la2WindowViewModel.HWnd, true, la2WindowViewModel.Image));
-            //}
+            foreach (var la2WindowViewModel in La2WindowsCollection.Where(w => w.WindowIsEnabled).ToList())
+            {
+                windowsInfo.Add(la2WindowViewModel.IsMain
+                    ? new WindowInfo(la2WindowViewModel.HWnd, false, la2WindowViewModel.Image)
+                    : new WindowInfo(la2WindowViewModel.HWnd, true, la2WindowViewModel.Image));
+            }
 
-            //OnWindowsReload(windowsInfo);
+            OnWindowsReload(windowsInfo);
         }
 
         private void WindowOnIsEnabledChanged(object sender, bool e)
