@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using CommonLibrary.Logging;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
@@ -15,15 +16,15 @@ namespace La2Skolopendra
 
         [NotNull] private readonly ILogger _logger;
 
-        [NotNull] public MainTabViewModel MainTabViewModel { get; }
+        [NotNull] public ObservableCollection<ITab> Tabs { get; } = new ObservableCollection<ITab>();
 
         internal MainViewModel([NotNull] ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            MainTabViewModel = new MainTabViewModel(logger);
-            MainTabViewModel.RequestActivateWindow += (sender, args) => OnRequestActivateWindow();
 
-            //bmp.Save("test.png", System.Drawing.Imaging.ImageFormat.Png);
+            var mainTabViewModel = new MainTabViewModel(logger);
+            mainTabViewModel.RequestActivateWindow += (sender, args) => OnRequestActivateWindow();
+            Tabs.Add(mainTabViewModel);
         }
     }
 }

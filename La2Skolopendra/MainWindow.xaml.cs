@@ -15,6 +15,7 @@ namespace La2Skolopendra
             viewModel.RequestActivateWindow += (sender, args) => Activate();
             InitializeComponent();
             DataContext = viewModel;
+            TabControl.SelectedIndex = 0;
         }
     }
 }

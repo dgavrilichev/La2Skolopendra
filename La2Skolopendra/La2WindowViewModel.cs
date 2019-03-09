@@ -22,7 +22,6 @@ namespace La2Skolopendra
 
 
         private readonly string _processId;
-        private bool _isMain;
 
         private BitmapSource _image;
         public BitmapSource Image
@@ -36,6 +35,7 @@ namespace La2Skolopendra
         }
 
         internal IntPtr HWnd { get; }
+        internal bool IsMain { get; private set; }
 
         private bool _windowIsEnabled = true;
         public bool WindowIsEnabled
@@ -94,21 +94,21 @@ namespace La2Skolopendra
         internal void SetAsMainAction()
         {
             OnSetAsMain();
-            _isMain = true;
+            IsMain = true;
             SetAsMainEnabled = false;
             ShowProcessId();
         }
 
         internal void SetAsSlave()
         {
-            _isMain = false;
+            IsMain = false;
             SetAsMainEnabled = true;
             ShowProcessId();
         }
 
         private void ShowProcessId()
         {
-            ProcessIdDisplay = $"{_processId} {(_isMain ? "(main)" : string.Empty)}";
+            ProcessIdDisplay = $"{_processId} {(IsMain ? "(main)" : string.Empty)}";
         }
     }
 }

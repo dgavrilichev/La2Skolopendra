@@ -12,8 +12,10 @@ using La2Skolopendra.Native;
 
 namespace La2Skolopendra
 {
-    internal sealed class MainTabViewModel : ViewModelBase
+    internal sealed class MainTabViewModel : ViewModelBase, ITab
     {
+        public string Header { get; } = "Main";
+
         private const string WindowName = "Lineage II";
 
         internal event EventHandler RequestActivateWindow;
