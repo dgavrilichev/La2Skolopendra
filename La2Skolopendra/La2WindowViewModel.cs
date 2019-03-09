@@ -40,6 +40,18 @@ namespace La2Skolopendra
             }
         }
 
+        private bool _setAsMainEnabled = true;
+        public bool SetAsMainEnabled
+        {
+            get => _setAsMainEnabled;
+            set
+            {
+                if (value == _setAsMainEnabled) return;
+                _setAsMainEnabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private string _processIdDisplay;
         public string ProcessIdDisplay
         {

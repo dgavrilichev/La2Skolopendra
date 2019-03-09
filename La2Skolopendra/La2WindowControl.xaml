@@ -30,7 +30,10 @@
                 <CheckBox  VerticalContentAlignment="Center" IsChecked="{Binding WindowIsEnabled}">
                     <Label Content="Enable for bot" VerticalAlignment="Center"/>
                 </CheckBox>
-                <Button Content="Set as main window" Width="120" Command="{Binding SetAsMainCommand}"/>
+                <Button Content="Set as main window"
+                        IsEnabled="{Binding SetAsMainEnabled}"
+                        Width="120" 
+                        Command="{Binding SetAsMainCommand}"/>
             </StackPanel>
         </Grid>
     </Border>
