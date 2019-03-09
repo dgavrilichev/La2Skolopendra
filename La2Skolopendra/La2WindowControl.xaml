@@ -14,16 +14,25 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <StackPanel Grid.Row="0" Grid.Column="0"
-                        Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Process Id:"/>
-                    <Label Content="{Binding ProcessId}"/>
-                </StackPanel>
-                <Image Width="512" Height="384"
-                       Stretch="UniformToFill"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                <Label Content="Process Id:"/>
+                <Label Content="{Binding ProcessId}"/>
+            </StackPanel>
+            <Image Grid.Row="1" Grid.Column="0"
+                    Width="512" Height="384"
+                    Stretch="UniformToFill"
                     Source="{Binding Image}" />
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                <CheckBox  VerticalContentAlignment="Center">
+                    <Label Content="Enable for bot" VerticalAlignment="Center"/>
+                </CheckBox>
+                <CheckBox  VerticalContentAlignment="Center">
+                    <Label Content="Set as main window" VerticalAlignment="Center"/>
+                </CheckBox>
             </StackPanel>
         </Grid>
     </Border>
