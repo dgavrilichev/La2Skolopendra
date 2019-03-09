@@ -57,10 +57,10 @@ namespace La2Skolopendra
             var la2Windows = WindowHelper.GetWindowByName(WindowName);
             foreach (var la2Window in la2Windows)
             {
-                var screenshot = ScreenshotHelper.GetScreenBitmap(la2Window);
+                var screenshot = ScreenshotHelper.GetScreenBitmap(la2Window.handle);
                 var source = BitmapHelper.BitmapToBitmapSource(screenshot);
                 source.Freeze();
-                La2WindowsCollection.Add(new La2WindowViewModel(source, "ss"));
+                La2WindowsCollection.Add(new La2WindowViewModel(source, la2Window.id));
                 Thread.Sleep(100);
             }
 

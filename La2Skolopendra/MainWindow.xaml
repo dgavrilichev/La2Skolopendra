@@ -6,7 +6,7 @@
         xmlns:la2Skolopendra="clr-namespace:La2Skolopendra"
         d:DataContext="{d:DesignInstance d:Type=la2Skolopendra:MainViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
-        Title="La2Skolopendra 0.1a" Height="600" Width="900">
+        Title="La2Skolopendra 0.2a" Height="600" Width="900">
     <Grid>
         <TabControl>
             <TabItem Header="Main">

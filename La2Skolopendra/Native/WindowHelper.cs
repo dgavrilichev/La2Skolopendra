@@ -13,7 +13,7 @@ namespace La2Skolopendra.Native
         internal static extern int SetForegroundWindow(IntPtr hWnd);
 
         [NotNull]
-        internal static IEnumerable<IntPtr> GetWindowByName(string name)
+        internal static IEnumerable<(IntPtr handle, string id)> GetWindowByName(string name)
         {
             var hWnd = IntPtr.Zero;
             foreach (var pList in Process.GetProcesses())
@@ -21,7 +21,7 @@ namespace La2Skolopendra.Native
                 if (pList.MainWindowTitle.Contains(name))
                 {
                     hWnd = pList.MainWindowHandle;
-                    yield return hWnd;
+                    yield return (hWnd, pList.Id.ToString());
                 }
             }
         }
