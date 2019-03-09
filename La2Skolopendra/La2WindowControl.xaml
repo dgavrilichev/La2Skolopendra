@@ -19,8 +19,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                <Label Content="Process Id:"/>
-                <Label Content="{Binding ProcessIdDisplay}"/>
+                <Label Content="Process Id:" Margin="3,3,0,3"/>
+                <Label Content="{Binding ProcessIdDisplay}" Margin="0,3" FontWeight="Bold"/>
             </StackPanel>
             <Image Grid.Row="1" Grid.Column="0"
                     Width="512" Height="384"

@@ -85,12 +85,14 @@ namespace La2Skolopendra
         {
             OnSetAsMain();
             _isMain = true;
+            SetAsMainEnabled = false;
             ShowProcessId();
         }
 
         internal void SetAsSlave()
         {
             _isMain = false;
+            SetAsMainEnabled = true;
             ShowProcessId();
         }
 
