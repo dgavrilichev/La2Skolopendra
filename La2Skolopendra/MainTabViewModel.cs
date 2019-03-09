@@ -120,8 +120,8 @@ namespace La2Skolopendra
             foreach (var la2WindowViewModel in La2WindowsCollection.Where(w => w.WindowIsEnabled).ToList())
             {
                 windowsInfo.Add(la2WindowViewModel.IsMain
-                    ? new WindowInfo(la2WindowViewModel.HWnd, false, la2WindowViewModel.Image)
-                    : new WindowInfo(la2WindowViewModel.HWnd, true, la2WindowViewModel.Image));
+                    ? new WindowInfo(la2WindowViewModel.HWnd, true, la2WindowViewModel.Image)
+                    : new WindowInfo(la2WindowViewModel.HWnd, false, la2WindowViewModel.Image));
             }
 
             OnWindowsReload(windowsInfo);
