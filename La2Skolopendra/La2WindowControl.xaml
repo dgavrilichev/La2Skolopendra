@@ -27,11 +27,12 @@
                     Stretch="UniformToFill"
                     Source="{Binding Image}" />
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                <CheckBox  VerticalContentAlignment="Center">
+                <CheckBox  VerticalContentAlignment="Center" IsChecked="{Binding WindowIsEnabled}">
                     <Label Content="Enable for bot" VerticalAlignment="Center"/>
                 </CheckBox>
-                <CheckBox  VerticalContentAlignment="Center">
-                    <Label Content="Set as main window" VerticalAlignment="Center"/>
+                <CheckBox  VerticalContentAlignment="Center" IsChecked="{Binding WindowIsMain}">
+                    <Label Content="Set as main window"
+                           VerticalAlignment="Center"/>
                 </CheckBox>
             </StackPanel>
         </Grid>
