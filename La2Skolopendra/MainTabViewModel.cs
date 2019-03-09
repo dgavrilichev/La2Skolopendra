@@ -63,7 +63,7 @@ namespace La2Skolopendra
                 var source = BitmapHelper.BitmapToBitmapSource(screenshot);
                 source.Freeze();
                 La2WindowsCollection.Add(new La2WindowViewModel(source, "ss"));
-                Thread.Sleep(200);
+                Thread.Sleep(100);
             }
 
             OnRequestActivateWindow();

@@ -12,9 +12,9 @@ namespace La2Skolopendra.Native
         public static Bitmap GetScreenBitmap(IntPtr hWnd)
         {
             WindowHelper.SetForegroundWindow(hWnd);    
-            Thread.Sleep(200);
+            Thread.Sleep(100);
             WindowHelper.SendMessage(hWnd);
-            Thread.Sleep(200);
+            Thread.Sleep(100);
             var rect = WindowHelper.GetWindowRect(hWnd);
 
             var width = rect.right - rect.left;
