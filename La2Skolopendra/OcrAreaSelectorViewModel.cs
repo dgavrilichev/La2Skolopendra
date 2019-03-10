@@ -6,15 +6,15 @@ namespace La2Skolopendra
 {
     public sealed class OcrAreaSelectorViewModel : ViewModelBase
     {
-        internal event EventHandler<Rectangle> AreaBoundsChanged;
-        private void OnAreaBoundsChanged(Rectangle e)
+        internal event EventHandler AreaBoundsChanged;
+        private void OnAreaBoundsChanged()
         {
-            AreaBoundsChanged?.Invoke(this, e);
+            AreaBoundsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         internal OcrAreaSelectorViewModel()
         {
-            MaxHeight = 2000;
+            MaxHeight = 1000;
             MaxWidth = 2000;
         }
 
@@ -47,7 +47,7 @@ namespace La2Skolopendra
             set
             {
                 _currentX = value;
-                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
+                OnAreaBoundsChanged();
                 NotifyPropertyChanged();
             }
         }
@@ -59,7 +59,7 @@ namespace La2Skolopendra
             set
             {
                 _currentY = value;
-                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
+                OnAreaBoundsChanged();
                 NotifyPropertyChanged();
             }
         }
@@ -73,7 +73,7 @@ namespace La2Skolopendra
                 if (value < 1) value = 1;
 
                 _currentHeight = value;
-                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
+                OnAreaBoundsChanged();
                 NotifyPropertyChanged();
             }
         }
@@ -87,7 +87,7 @@ namespace La2Skolopendra
                 if (value < 1) value = 1;
 
                 _currentWidth = value;
-                OnAreaBoundsChanged(new Rectangle(CurrentX, CurrentY, CurrentWidth, CurrentHeight));
+                OnAreaBoundsChanged();
                 NotifyPropertyChanged();
             }
         }

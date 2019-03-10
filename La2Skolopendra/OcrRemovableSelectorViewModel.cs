@@ -7,10 +7,10 @@ namespace La2Skolopendra
 {
     internal sealed class OcrRemovableSelectorViewModel : ViewModelBase
     {
-        internal event EventHandler<Rectangle> AreaBoundsChanged;
-        private void OnAreaBoundsChanged(Rectangle e)
+        internal event EventHandler AreaBoundsChanged;
+        private void OnAreaBoundsChanged()
         {
-            AreaBoundsChanged?.Invoke(this, e);
+            AreaBoundsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         internal event EventHandler RequestRemove;
@@ -37,7 +37,7 @@ namespace La2Skolopendra
         {
             Id = id;
             SelectorViewModel = new OcrAreaSelectorViewModel();
-            SelectorViewModel.AreaBoundsChanged += (sender, rectangle) => OnAreaBoundsChanged(rectangle);
+            SelectorViewModel.AreaBoundsChanged += (sender, rectangle) => OnAreaBoundsChanged();
         }
 
         public ICommand RemoveCommand

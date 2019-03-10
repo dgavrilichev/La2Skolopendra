@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -91,7 +92,7 @@ namespace La2Skolopendra
             }
         }
 
-        private void NewSelectorOnAreaBoundsChanged(object sender, Rectangle e)
+        private void NewSelectorOnAreaBoundsChanged(object sender, EventArgs e)
         {
             RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
         }
