@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
@@ -28,6 +29,27 @@ namespace La2Skolopendra.Native
             }
 
             return bitmap;
+        }
+
+        [NotNull]
+        public static Bitmap ApplyExclude([NotNull] List<Rectangle> excludeInfoData, [NotNull] Bitmap src)
+        {
+            if(excludeInfoData == null) throw new ArgumentNullException(nameof(excludeInfoData));
+            if(src == null) throw new ArgumentNullException(nameof(src));
+
+            using (var scrGraphics = Graphics.FromImage(src))
+            {
+                var result = new Bitmap(src.Width, src.Height, scrGraphics);
+                using (var resultGraphics = Graphics.FromImage(result))
+                {
+                    foreach (var rectangle in excludeInfoData)
+                    {
+                        resultGraphics.FillRectangle(Brushes.Black, rectangle);
+                    }
+                }
+
+                return result;
+            }
         }
     }
 }
