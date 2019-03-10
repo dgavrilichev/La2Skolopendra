@@ -81,6 +81,10 @@
     <Compile Include="Export\OcrExcludeInfo.cs" />
     <Compile Include="Export\OcrRegionInfo.cs" />
     <Compile Include="Export\SkSettings.cs" />
+    <Compile Include="MasterTab.xaml.cs">
+      <DependentUpon>MasterTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterViewModel.cs" />
     <Compile Include="OcrAreaSelectorViewModel.cs" />
     <Compile Include="OcrExcludeTab.xaml.cs">
       <DependentUpon>OcrExcludeTab.xaml</DependentUpon>
@@ -120,6 +124,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MasterTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OcrAreaSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
