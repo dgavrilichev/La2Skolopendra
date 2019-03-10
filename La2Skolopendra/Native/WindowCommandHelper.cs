@@ -57,6 +57,8 @@ namespace La2Skolopendra.Native
 
         internal static async Task LeftClick(IntPtr hWnd, Point point)
         {
+            SetCursorPos(point.X, point.Y);
+            await Task.Delay(TimeSpan.FromSeconds(0.2));
             mouse_event(MOUSEEVENTF_LEFTDOWN, point.X, point.Y, 0, 0);
             await Task.Delay(TimeSpan.FromSeconds(0.2));
             mouse_event(MOUSEEVENTF_LEFTUP, point.X, point.Y, 0, 0);

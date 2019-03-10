@@ -55,22 +55,22 @@ namespace La2Skolopendra.Engine
                 var targetIsSelected = await SelectGoodTarget(cancellationToken, screenshot);
 
                 if (targetIsSelected)
-                    await FightTarget();
+                    await FightTarget(cancellationToken);
                 else
-                    await TurnScreen();
+                    await TurnScreen(cancellationToken);
 
                 await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
             }
         }
 
-        private async Task TurnScreen()
+        private async Task TurnScreen(CancellationToken cancellationToken)
         {
 
         }
 
-        private async Task FightTarget()
+        private async Task FightTarget(CancellationToken cancellationToken)
         {
-           
+            
         }
 
         private async Task<bool> SelectGoodTarget(CancellationToken cancellationToken, [NotNull] Bitmap screenshot)
@@ -109,7 +109,7 @@ namespace La2Skolopendra.Engine
             //r 99-231
             //g 0-73
             //b 0-132
-            var y = hpBar.Width / 2;
+            var y = hpBar.Height / 2;
             double currentHp = 0;
             for (var x = 0; x < hpBar.Width; x++)
             {
@@ -134,6 +134,7 @@ namespace La2Skolopendra.Engine
 
             var result = new List<Point>();
             var log = string.Empty;
+            var windowRect = WindowHelper.GetWindowRect(_hWnd);
 
             using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
             {
@@ -151,9 +152,11 @@ namespace La2Skolopendra.Engine
 
                                 if (modifiedString.Length > 4 && rect.Height > 3 && rect.Height < 20)
                                 {
-
                                     log = $"{log}\n{modifiedString} | {rect.ToString()}";
-                                    result.Add(new Point((rect.X1 + rect.X2) / 2, rect.Y1 + 30));
+
+                                    var targetPoint = new Point((rect.X1 + rect.X2) / 2 + windowRect.left,
+                                        rect.Y1 + 30 + windowRect.top);
+                                    result.Add(targetPoint);
                                 }
                             }
                         } while (iterator.Next(PageIteratorLevel.TextLine));
