@@ -78,6 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Engine\MasterProcessor.cs" />
     <Compile Include="Export\OcrExcludeInfo.cs" />
     <Compile Include="Export\OcrRegionInfo.cs" />
     <Compile Include="Export\SkSettings.cs" />

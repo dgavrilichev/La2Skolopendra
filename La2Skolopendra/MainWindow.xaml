@@ -12,20 +12,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="12,2">
-            <Button Content="Run" HorizontalAlignment="Center" VerticalAlignment="Top"
-                    Width="50" />
-            <Button Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Top"
-                    Width="50" />
-        </StackPanel>
-
         <Grid Grid.Row="0">
             <TabControl x:Name="TabControl">
-                <TabControl.Resources>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Padding" Value="8" />
-                    </Style>
-                </TabControl.Resources>
                 <TabItem Header="Main">
                     <la2Skolopendra:MainTab  DataContext="{Binding MainTabViewModel}"/>
                 </TabItem>
@@ -34,6 +22,9 @@
                 </TabItem>
                 <TabItem Header="Interface exclude zones">
                     <la2Skolopendra:OcrExcludeTab DataContext="{Binding OcrExcludeViewModel}"/>
+                </TabItem>
+                <TabItem Header="Master">
+                    <la2Skolopendra:MasterTab DataContext="{Binding MasterViewModel}"/>
                 </TabItem>
             </TabControl>
         </Grid>

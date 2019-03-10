@@ -22,6 +22,7 @@ namespace La2Skolopendra
         [NotNull] public MainTabViewModel MainTabViewModel { get; }
         [NotNull] public OcrRegionViewModel OcrRegionViewModel { get; }
         [NotNull] public OcrExcludeViewModel OcrExcludeViewModel { get; }
+        [NotNull] public MasterViewModel MasterViewModel { get; }
 
         internal MainViewModel([NotNull] ILogger logger)
         {
@@ -37,6 +38,8 @@ namespace La2Skolopendra
             OcrRegionViewModel.OcrRegionUpdate += OnOcrRegionUpdate;
             OcrExcludeViewModel = new OcrExcludeViewModel(_skSettings.ExcludeInfo);
             OcrExcludeViewModel.RegionUpdated += OnRegionUpdated;
+
+            MasterViewModel = new MasterViewModel();
         }
 
         private void OnRegionUpdated(object sender, OcrExcludeInfo e)

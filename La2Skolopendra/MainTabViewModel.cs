@@ -87,6 +87,9 @@ namespace La2Skolopendra
                 }
 
                 Thread.Sleep(100);
+
+                if(La2WindowsCollection.Any(w => w.IsMain))
+                    ProcessReload();
             }
 
             var windowsToRemove = La2WindowsCollection.Where(w => !windowsToKeep.Contains(w)).ToList();
