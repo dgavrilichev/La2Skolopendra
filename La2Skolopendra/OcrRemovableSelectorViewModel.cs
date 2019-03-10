@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Input;
 using CommonLibrary.Wpf;
 
@@ -32,11 +33,11 @@ namespace La2Skolopendra
             }
         }
 
-        internal OcrRemovableSelectorViewModel(int id)
+        internal OcrRemovableSelectorViewModel(int id, Rectangle rectangle)
         {
             Id = id;
-            SelectorViewModel = new OcrAreaSelectorViewModel();
-            SelectorViewModel.AreaBoundsChanged += (sender, rectangle) => OnAreaBoundsChanged();
+            SelectorViewModel = new OcrAreaSelectorViewModel(rectangle);
+            SelectorViewModel.AreaBoundsChanged += (sender, rect) => OnAreaBoundsChanged();
         }
 
         public ICommand RemoveCommand

@@ -33,8 +33,22 @@ namespace La2Skolopendra
             MainTabViewModel.RequestActivateWindow += (sender, args) => OnRequestActivateWindow();
             MainTabViewModel.WindowsReload += OnWindowsReload;
             
-            OcrRegionViewModel = new OcrRegionViewModel();
-            OcrExcludeViewModel = new OcrExcludeViewModel();
+            OcrRegionViewModel = new OcrRegionViewModel(_skSettings.RegionInfo);
+            OcrRegionViewModel.OcrRegionUpdate += OnOcrRegionUpdate;
+            OcrExcludeViewModel = new OcrExcludeViewModel(_skSettings.ExcludeInfo);
+            OcrExcludeViewModel.RegionUpdated += OnRegionUpdated;
+        }
+
+        private void OnRegionUpdated(object sender, OcrExcludeInfo e)
+        {
+            _skSettings.ExcludeInfo = e;
+            _skSettings.Save();
+        }
+
+        private void OnOcrRegionUpdate(object sender, OcrRegionInfo e)
+        {
+            _skSettings.RegionInfo = e;
+            _skSettings.Save();
         }
 
         private void OnWindowsReload(object sender, [NotNull] List<WindowInfo> e)

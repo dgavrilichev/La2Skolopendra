@@ -12,8 +12,13 @@ namespace La2Skolopendra
             AreaBoundsChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        internal OcrAreaSelectorViewModel()
+        internal OcrAreaSelectorViewModel(Rectangle rectangle)
         {
+            CurrentWidth = rectangle.Width;
+            CurrentHeight = rectangle.Height;
+            CurrentX = rectangle.X;
+            CurrentY = rectangle.Y;
+
             MaxHeight = 1000;
             MaxWidth = 2000;
         }
@@ -40,7 +45,7 @@ namespace La2Skolopendra
             }
         }
 
-        private int _currentX = 200;
+        private int _currentX;
         public int CurrentX
         {
             get => _currentX;
@@ -52,7 +57,7 @@ namespace La2Skolopendra
             }
         }
 
-        private int _currentY = 100;
+        private int _currentY;
         public int CurrentY
         {
             get => _currentY;
@@ -64,7 +69,7 @@ namespace La2Skolopendra
             }
         }
 
-        private int _currentHeight = 30;
+        private int _currentHeight;
         public int CurrentHeight
         {
             get => _currentHeight;
@@ -78,7 +83,7 @@ namespace La2Skolopendra
             }
         }
 
-        private int _currentWidth = 200;
+        private int _currentWidth;
         public int CurrentWidth
         {
             get => _currentWidth;

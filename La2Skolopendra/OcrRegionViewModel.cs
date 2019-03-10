@@ -79,12 +79,12 @@ namespace La2Skolopendra
             }
         }
 
-        internal OcrRegionViewModel()
+        internal OcrRegionViewModel(OcrRegionInfo skSettingsRegionInfo)
         {
-            TargetHpSelector = new OcrAreaSelectorViewModel();
+            TargetHpSelector = new OcrAreaSelectorViewModel(skSettingsRegionInfo.TargetHp);
             TargetHpSelector.AreaBoundsChanged += OnAreaBoundsChanged;
 
-            MyHpSelector = new OcrAreaSelectorViewModel();
+            MyHpSelector = new OcrAreaSelectorViewModel(skSettingsRegionInfo.MyHp);
             MyHpSelector.AreaBoundsChanged += OnAreaBoundsChanged;
         }
 

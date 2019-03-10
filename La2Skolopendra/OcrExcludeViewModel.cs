@@ -51,13 +51,13 @@ namespace La2Skolopendra
         {
             get
             {
-                return new RelayCommand(o => { CreateNewSelector(); });
+                return new RelayCommand(o => { CreateNewSelector(new Rectangle(100, 100, 200, 50)); });
             }
         }
 
-        private void CreateNewSelector()
+        private void CreateNewSelector(Rectangle rectangle)
         {
-            var newSelector = new OcrRemovableSelectorViewModel(_currentId);
+            var newSelector = new OcrRemovableSelectorViewModel(_currentId, rectangle);
             _currentId++;
             newSelector.RequestRemove += (sender, args) =>
             {
@@ -70,6 +70,17 @@ namespace La2Skolopendra
         }
 
         private bool _isEnabled;
+
+        public OcrExcludeViewModel([NotNull] OcrExcludeInfo skSettingsExcludeInfo)
+        {
+            if(skSettingsExcludeInfo == null) throw new ArgumentNullException(nameof(skSettingsExcludeInfo));
+
+            foreach (var rectangle in skSettingsExcludeInfo.Data)
+            {
+                CreateNewSelector(rectangle);
+            }
+        }
+
         public bool IsEnabled
         {
             get => _isEnabled;
