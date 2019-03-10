@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 using JetBrains.Annotations;
 using La2Skolopendra.Export;
 using La2Skolopendra.Native;
@@ -70,7 +68,7 @@ namespace La2Skolopendra.Engine
 
         private async Task FightTarget(CancellationToken cancellationToken)
         {
-            
+            OnReport($"Target found!");
         }
 
         private async Task<bool> SelectGoodTarget(CancellationToken cancellationToken, [NotNull] Bitmap screenshot)
@@ -90,9 +88,9 @@ namespace La2Skolopendra.Engine
             foreach (var target in targets)
             {
                 await WindowCommandHelper.LeftClick(_hWnd, target);
-                var targetHealth = ScreenshotHelper.GetSubPart(screenshotWithExclude, _settings.RegionInfo.TargetHp);
+                var targetHealth = ScreenshotHelper.GetSubPart(screenshot, _settings.RegionInfo.TargetHp);
                 var targetHealthPercent = GetTargetHpPercent(targetHealth);
-                OnReport($"Target health: {targetHealth}");
+                OnReport($"Target health: {targetHealthPercent}");
 
                 if (targetHealthPercent > 0)               
                     return true;          
@@ -125,7 +123,7 @@ namespace La2Skolopendra.Engine
 
         private bool IsRedHp(Color color)
         {
-            return color.R > 90 && color.G < 100 && color.B < 140;
+            return color.R > 200 && color.G < 100 && color.B < 140;
         }
 
         private List<Point> GetTargets([NotNull] Bitmap blacked)

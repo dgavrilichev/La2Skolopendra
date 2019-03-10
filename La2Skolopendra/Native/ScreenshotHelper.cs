@@ -35,16 +35,17 @@ namespace La2Skolopendra.Native
         {
             if (src == null) throw new ArgumentNullException(nameof(src));
 
-            var result = new Bitmap(rectangle.Width, rectangle.Height);
-            using (var graphics = Graphics.FromImage(result))
+            var target = new Bitmap(rectangle.Width, rectangle.Height);
+
+            using (var g = Graphics.FromImage(target))
             {
-                graphics.DrawImage(src, 
-                    new Rectangle(0, 0, rectangle.Width, rectangle.Height),
+                g.DrawImage(src, new Rectangle(0, 0, target.Width, target.Height),
                     rectangle,
                     GraphicsUnit.Pixel);
-            }
 
-            return result;
+                target.Save("hp.png", System.Drawing.Imaging.ImageFormat.Png);
+                return target;
+            }
         }
 
         [NotNull]

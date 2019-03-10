@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using JetBrains.Annotations;
@@ -57,11 +58,14 @@ namespace La2Skolopendra.Native
 
         internal static async Task LeftClick(IntPtr hWnd, Point point)
         {
-            SetCursorPos(point.X, point.Y);
-            await Task.Delay(TimeSpan.FromSeconds(0.2));
-            mouse_event(MOUSEEVENTF_LEFTDOWN, point.X, point.Y, 0, 0);
-            await Task.Delay(TimeSpan.FromSeconds(0.2));
-            mouse_event(MOUSEEVENTF_LEFTUP, point.X, point.Y, 0, 0);
+            var xpos = point.X;
+            var ypos = point.Y;
+
+            SetCursorPos(xpos, ypos);
+            Thread.Sleep(200);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, xpos, ypos, 0, 0);
+            Thread.Sleep(200);
+            mouse_event(MOUSEEVENTF_LEFTUP, xpos, ypos, 0, 0);
         }
     }
 }
