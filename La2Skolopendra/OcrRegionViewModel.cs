@@ -4,6 +4,7 @@ using System.Windows.Media.Imaging;
 using CommonLibrary;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
+using La2Skolopendra.Export;
 using Brush = System.Drawing.Brush;
 using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
