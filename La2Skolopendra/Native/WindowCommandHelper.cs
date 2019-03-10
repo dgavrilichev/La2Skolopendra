@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using La2Bot;
@@ -12,6 +11,24 @@ namespace La2Skolopendra.Native
 {
     internal static class WindowCommandHelper
     {
+        internal enum KeyCodes
+        {
+            F1 = 0x70,
+            F2 = 0x71,
+            F3 = 0x72,
+            F4 = 0x73,
+            F5 = 0x74,
+            F6 = 0x75,
+            F7 = 0x76,
+            F8 = 0x77,
+            F9 = 0x78,
+            F10 = 0x79,
+            F11 = 0x7A,
+            F12 = 0x7B,
+            Left = 0x25,
+            Right = 0x27
+        }
+
         private const int MOUSEEVENTF_LEFTDOWN = 0x02;
         private const int MOUSEEVENTF_LEFTUP = 0x04;
 
@@ -51,20 +68,20 @@ namespace La2Skolopendra.Native
         [DllImport("user32.dll")]
         static extern bool PostMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
 
-        internal static void PressKey(IntPtr hWnd, Key key)
+        internal static void PressKey(IntPtr hWnd, KeyCodes key)
         {
             PostMessage(hWnd, WM_KEYDOWN, (int)key, 0);
         }
 
-        internal static async Task LeftClick(IntPtr hWnd, Point point)
+        internal static void LeftClick(Point point)
         {
             var xpos = point.X;
             var ypos = point.Y;
 
             SetCursorPos(xpos, ypos);
-            Thread.Sleep(200);
+            Thread.Sleep(100);
             mouse_event(MOUSEEVENTF_LEFTDOWN, xpos, ypos, 0, 0);
-            Thread.Sleep(200);
+            Thread.Sleep(100);
             mouse_event(MOUSEEVENTF_LEFTUP, xpos, ypos, 0, 0);
         }
     }

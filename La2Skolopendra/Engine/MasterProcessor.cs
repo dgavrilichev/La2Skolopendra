@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using JetBrains.Annotations;
 using La2Skolopendra.Export;
 using La2Skolopendra.Native;
@@ -69,6 +70,28 @@ namespace La2Skolopendra.Engine
         private async Task FightTarget(CancellationToken cancellationToken)
         {
             OnReport($"Target found!");
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var screenshot = ScreenshotHelper.GetScreenBitmap(_hWnd);
+                var targetHealth = ScreenshotHelper.GetSubPart(screenshot, _settings.RegionInfo.TargetHp);
+                var targetHealthPercent = GetTargetHpPercent(targetHealth);
+                OnReport($"Target health: {targetHealthPercent:###.##}%");
+                if(Math.Abs(targetHealthPercent) < 0.00001)
+                    break;
+                
+                WindowCommandHelper.PressKey(_hWnd, WindowCommandHelper.KeyCodes.F1);
+
+                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            }
+
+            OnReport($"Target is dead!");
+            WindowCommandHelper.PressKey(_hWnd, WindowCommandHelper.KeyCodes.F4);
+            await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+            WindowCommandHelper.PressKey(_hWnd, WindowCommandHelper.KeyCodes.F4);
+            await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+            WindowCommandHelper.PressKey(_hWnd, WindowCommandHelper.KeyCodes.F4);
+            await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+            WindowCommandHelper.PressKey(_hWnd, WindowCommandHelper.KeyCodes.F4);
         }
 
         private async Task<bool> SelectGoodTarget(CancellationToken cancellationToken, [NotNull] Bitmap screenshot)
@@ -87,8 +110,9 @@ namespace La2Skolopendra.Engine
             var targets = GetTargets(blackedBitmap);
             foreach (var target in targets)
             {
-                await WindowCommandHelper.LeftClick(_hWnd, target);
-                var targetHealth = ScreenshotHelper.GetSubPart(screenshot, _settings.RegionInfo.TargetHp);
+                WindowCommandHelper.LeftClick(target);
+                var screenshotWithHp = ScreenshotHelper.GetScreenBitmap(_hWnd);
+                var targetHealth = ScreenshotHelper.GetSubPart(screenshotWithHp, _settings.RegionInfo.TargetHp);
                 var targetHealthPercent = GetTargetHpPercent(targetHealth);
                 OnReport($"Target health: {targetHealthPercent}");
 
