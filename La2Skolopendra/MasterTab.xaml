@@ -50,9 +50,16 @@
             <Grid>
                 <ScrollViewer VerticalScrollBarVisibility="Visible"
                               HorizontalScrollBarVisibility="Hidden">
-                    <TextBlock />
+                    <TextBox Text="{Binding Log}" TextWrapping="Wrap" 
+                             TextChanged="OnTextChanged"
+                             x:Name="LogBox" />
                 </ScrollViewer>
             </Grid>
         </Border>
+
+        <Button Grid.Row="0" Grid.Column="1"
+                VerticalAlignment="Top"
+                Command="{Binding StartCommand}"
+                Content="Start" />
     </Grid>
 </UserControl>

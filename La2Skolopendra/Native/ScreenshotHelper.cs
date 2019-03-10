@@ -36,20 +36,18 @@ namespace La2Skolopendra.Native
         {
             if(excludeInfoData == null) throw new ArgumentNullException(nameof(excludeInfoData));
             if(src == null) throw new ArgumentNullException(nameof(src));
-
-            using (var scrGraphics = Graphics.FromImage(src))
+  
+            var result = new Bitmap(src.Width, src.Height);         
+            using (var resultGraphics = Graphics.FromImage(result))
             {
-                var result = new Bitmap(src.Width, src.Height, scrGraphics);
-                using (var resultGraphics = Graphics.FromImage(result))
+                resultGraphics.DrawImage(src, new Point(0,0));
+                foreach (var rectangle in excludeInfoData)
                 {
-                    foreach (var rectangle in excludeInfoData)
-                    {
-                        resultGraphics.FillRectangle(Brushes.Black, rectangle);
-                    }
+                    resultGraphics.FillRectangle(Brushes.Black, rectangle);
                 }
-
-                return result;
             }
+
+            return result;        
         }
     }
 }

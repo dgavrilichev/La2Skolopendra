@@ -22,7 +22,17 @@ namespace La2Skolopendra
         [NotNull] public MainTabViewModel MainTabViewModel { get; }
         [NotNull] public OcrRegionViewModel OcrRegionViewModel { get; }
         [NotNull] public OcrExcludeViewModel OcrExcludeViewModel { get; }
-        [NotNull] public MasterViewModel MasterViewModel { get; }
+
+        private MasterViewModel _masterViewModel;
+        public MasterViewModel MasterViewModel
+        {
+            get => _masterViewModel;
+            set
+            {
+                _masterViewModel = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         internal MainViewModel([NotNull] ILogger logger)
         {
@@ -38,8 +48,6 @@ namespace La2Skolopendra
             OcrRegionViewModel.OcrRegionUpdate += OnOcrRegionUpdate;
             OcrExcludeViewModel = new OcrExcludeViewModel(_skSettings.ExcludeInfo);
             OcrExcludeViewModel.RegionUpdated += OnRegionUpdated;
-
-            MasterViewModel = new MasterViewModel();
         }
 
         private void OnRegionUpdated(object sender, OcrExcludeInfo e)
@@ -61,6 +69,11 @@ namespace La2Skolopendra
             var main = e.SingleOrDefault(w => w.IsMain);
             OcrRegionViewModel.SetMainWindowImage(main?.Image);
             OcrExcludeViewModel.SetMainWindowImage(main?.Image);
+
+            if (main != null)
+            {
+                MasterViewModel = new MasterViewModel(_skSettings, main.HWnd);
+            }
         }
     }
 }

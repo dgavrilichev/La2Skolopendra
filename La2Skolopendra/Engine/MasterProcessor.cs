@@ -41,8 +41,7 @@ namespace La2Skolopendra.Engine
                 var screenshot = ScreenshotHelper.GetScreenBitmap(_hWnd);
                 await SelectGoodTarget(cancellationToken, screenshot);
 
-
-                await Task.Delay(TimeSpan.FromSeconds(0.1), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
         }
 
@@ -52,9 +51,7 @@ namespace La2Skolopendra.Engine
 
             var screenshotWithExclude = ScreenshotHelper.ApplyExclude(_settings.ExcludeInfo.Data, screenshot);
 
-            throw new NotImplementedException();
-        }
-
- 
+            OnScreenCapture(new Bitmap(screenshotWithExclude));
+        } 
     }
 }
