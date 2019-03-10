@@ -48,11 +48,10 @@
             </Border.Effect>
 
             <Grid>
-                <ScrollViewer VerticalScrollBarVisibility="Visible"
+                <ScrollViewer VerticalScrollBarVisibility="Visible" x:Name="LogBox" 
                               HorizontalScrollBarVisibility="Hidden">
                     <TextBox Text="{Binding Log}" TextWrapping="Wrap" 
-                             TextChanged="OnTextChanged"
-                             x:Name="LogBox" />
+                             TextChanged="OnTextChanged"/>
                 </ScrollViewer>
             </Grid>
         </Border>
