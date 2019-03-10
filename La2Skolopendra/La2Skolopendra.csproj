@@ -80,6 +80,7 @@
     </ApplicationDefinition>
     <Compile Include="Export\OcrExcludeInfo.cs" />
     <Compile Include="Export\OcrRegionInfo.cs" />
+    <Compile Include="Export\Settings.cs" />
     <Compile Include="OcrAreaSelectorViewModel.cs" />
     <Compile Include="OcrExcludeTab.xaml.cs">
       <DependentUpon>OcrExcludeTab.xaml</DependentUpon>
