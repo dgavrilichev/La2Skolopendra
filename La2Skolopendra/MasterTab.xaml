@@ -30,7 +30,7 @@
             </Border.Effect>
 
             <Grid>
-                <Image Stretch="Uniform" Width="640" Height="320"
+                <Image Stretch="Uniform" Width="800" Height="480"
                            Source="{Binding Image}" />
             </Grid>
         </Border>
