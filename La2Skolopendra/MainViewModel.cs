@@ -4,6 +4,7 @@ using System.Linq;
 using CommonLibrary.Logging;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
+using La2Skolopendra.Export;
 
 namespace La2Skolopendra
 {
@@ -16,6 +17,7 @@ namespace La2Skolopendra
         }
 
         [NotNull] private readonly ILogger _logger;
+        [NotNull] private readonly SkSettings _skSettings = new SkSettings();
 
         [NotNull] public MainTabViewModel MainTabViewModel { get; }
         [NotNull] public OcrRegionViewModel OcrRegionViewModel { get; }
@@ -24,6 +26,8 @@ namespace La2Skolopendra
         internal MainViewModel([NotNull] ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+            _skSettings.Load();
 
             MainTabViewModel = new MainTabViewModel(logger);
             MainTabViewModel.RequestActivateWindow += (sender, args) => OnRequestActivateWindow();

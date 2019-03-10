@@ -6,11 +6,18 @@ using System.Windows.Media.Imaging;
 using CommonLibrary;
 using CommonLibrary.Wpf;
 using JetBrains.Annotations;
+using La2Skolopendra.Export;
 
 namespace La2Skolopendra
 {
     internal sealed class OcrExcludeViewModel : ViewModelBase
     {
+        internal event EventHandler<OcrExcludeInfo> RegionUpdated;
+        private void OnRegionUpdated(OcrExcludeInfo e)
+        {
+            RegionUpdated?.Invoke(this, e);
+        }
+
         [NotNull] private readonly Pen _borderPen = new Pen(Brushes.SpringGreen);
         [NotNull] private readonly Font _drawFont = new Font("Arial", 16);
 
@@ -95,6 +102,15 @@ namespace La2Skolopendra
         private void NewSelectorOnAreaBoundsChanged(object sender, EventArgs e)
         {
             RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
+            var info = new OcrExcludeInfo();
+            foreach (var selector in RemovableSelectors)
+            {
+                info.Data.Add(new Rectangle(selector.SelectorViewModel.CurrentX,
+                    selector.SelectorViewModel.CurrentY,
+                    selector.SelectorViewModel.CurrentWidth,
+                    selector.SelectorViewModel.CurrentHeight));
+            }
+            OnRegionUpdated(info);
         }
 
         [NotNull]
