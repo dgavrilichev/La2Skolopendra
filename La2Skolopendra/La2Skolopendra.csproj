@@ -86,6 +86,7 @@
       <DependentUpon>MasterTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="MasterViewModel.cs" />
+    <Compile Include="Native\WindowCommandHelper.cs" />
     <Compile Include="OcrAreaSelectorViewModel.cs" />
     <Compile Include="OcrExcludeTab.xaml.cs">
       <DependentUpon>OcrExcludeTab.xaml</DependentUpon>
