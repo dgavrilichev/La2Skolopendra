@@ -28,7 +28,7 @@ namespace La2Skolopendra.Native
 
         internal static Rect GetWindowRect(IntPtr hWnd)
         {
-            var rect = new WindowHelper.Rect();
+            var rect = new Rect();
             GetWindowRect(hWnd, ref rect);
 
             return rect;
@@ -47,7 +47,7 @@ namespace La2Skolopendra.Native
             public int bottom;
         }
 
-        internal static bool SendMessage(IntPtr hWnd)
+        internal static bool Restore(IntPtr hWnd)
         {
             return SendMessage(hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -45,15 +46,34 @@ namespace La2Skolopendra.Engine
         {
             while (!cancellationToken.IsCancellationRequested)
             {
+                WindowHelper.Restore(_hWnd);
+                WindowHelper.SetForegroundWindow(_hWnd);
+
                 OnReport("Capture screen");
                 var screenshot = ScreenshotHelper.GetScreenBitmap(_hWnd);
-                await SelectGoodTarget(cancellationToken, screenshot);
 
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                var targetIsSelected = await SelectGoodTarget(cancellationToken, screenshot);
+
+                if (targetIsSelected)
+                    await FightTarget();
+                else
+                    await TurnScreen();
+
+                await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
             }
         }
 
-        private async Task SelectGoodTarget(CancellationToken cancellationToken, [NotNull] Bitmap screenshot)
+        private async Task TurnScreen()
+        {
+
+        }
+
+        private async Task FightTarget()
+        {
+           
+        }
+
+        private async Task<bool> SelectGoodTarget(CancellationToken cancellationToken, [NotNull] Bitmap screenshot)
         {
             if(screenshot == null) throw new ArgumentNullException(nameof(screenshot));
 
@@ -67,6 +87,45 @@ namespace La2Skolopendra.Engine
             var blackedBitmap = blacked.ToBitmap();
 
             var targets = GetTargets(blackedBitmap);
+            foreach (var target in targets)
+            {
+                await WindowCommandHelper.LeftClick(_hWnd, target);
+                var targetHealth = ScreenshotHelper.GetSubPart(screenshotWithExclude, _settings.RegionInfo.TargetHp);
+                var targetHealthPercent = GetTargetHpPercent(targetHealth);
+                OnReport($"Target health: {targetHealth}");
+
+                if (targetHealthPercent > 0)               
+                    return true;          
+
+                OnReport($"Target is dead or neutral");
+                await Task.Delay(TimeSpan.FromSeconds(0.5), cancellationToken);
+            }
+
+            return false;
+        }
+
+        private double GetTargetHpPercent(Bitmap hpBar)
+        {
+            //r 99-231
+            //g 0-73
+            //b 0-132
+            var y = hpBar.Width / 2;
+            double currentHp = 0;
+            for (var x = 0; x < hpBar.Width; x++)
+            {
+                var isRed = IsRedHp(hpBar.GetPixel(x, y));
+                if (isRed)                
+                    currentHp += 1;                
+                else               
+                    break;                
+            }
+
+            return currentHp / hpBar.Width * 100.0;
+        }
+
+        private bool IsRedHp(Color color)
+        {
+            return color.R > 90 && color.G < 100 && color.B < 140;
         }
 
         private List<Point> GetTargets([NotNull] Bitmap blacked)

@@ -13,7 +13,7 @@ namespace La2Skolopendra.Native
         private static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
         [NotNull]
-        public static Bitmap GetScreenBitmap(IntPtr hWnd)
+        internal static Bitmap GetScreenBitmap(IntPtr hWnd)
         {
             var rect = WindowHelper.GetWindowRect(hWnd);
             var width = rect.right - rect.left;
@@ -31,8 +31,24 @@ namespace La2Skolopendra.Native
             return bitmap;
         }
 
+        internal static Bitmap GetSubPart([NotNull] Bitmap src, Rectangle rectangle)
+        {
+            if (src == null) throw new ArgumentNullException(nameof(src));
+
+            var result = new Bitmap(rectangle.Width, rectangle.Height);
+            using (var graphics = Graphics.FromImage(result))
+            {
+                graphics.DrawImage(src, 
+                    new Rectangle(0, 0, rectangle.Width, rectangle.Height),
+                    rectangle,
+                    GraphicsUnit.Pixel);
+            }
+
+            return result;
+        }
+
         [NotNull]
-        public static Bitmap ApplyExclude([NotNull] List<Rectangle> excludeInfoData, [NotNull] Bitmap src)
+        internal static Bitmap ApplyExclude([NotNull] List<Rectangle> excludeInfoData, [NotNull] Bitmap src)
         {
             if(excludeInfoData == null) throw new ArgumentNullException(nameof(excludeInfoData));
             if(src == null) throw new ArgumentNullException(nameof(src));
