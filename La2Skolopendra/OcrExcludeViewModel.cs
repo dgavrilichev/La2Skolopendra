@@ -13,9 +13,18 @@ namespace La2Skolopendra
     internal sealed class OcrExcludeViewModel : ViewModelBase
     {
         internal event EventHandler<OcrExcludeInfo> RegionUpdated;
-        private void OnRegionUpdated(OcrExcludeInfo e)
+        private void OnRegionUpdated()
         {
-            RegionUpdated?.Invoke(this, e);
+            var info = new OcrExcludeInfo();
+            foreach (var selector in RemovableSelectors)
+            {
+                info.Data.Add(new Rectangle(selector.SelectorViewModel.CurrentX,
+                    selector.SelectorViewModel.CurrentY,
+                    selector.SelectorViewModel.CurrentWidth,
+                    selector.SelectorViewModel.CurrentHeight));
+            }
+
+            RegionUpdated?.Invoke(this, info);
         }
 
         [NotNull] private readonly Pen _borderPen = new Pen(Brushes.SpringGreen);
@@ -51,7 +60,12 @@ namespace La2Skolopendra
         {
             get
             {
-                return new RelayCommand(o => { CreateNewSelector(new Rectangle(100, 100, 200, 50)); });
+                return new RelayCommand(o =>
+                {
+                    CreateNewSelector(new Rectangle(100, 100, 200, 50));
+                    RegionImage = DrawRegions();
+                    OnRegionUpdated();
+                });
             }
         }
 
@@ -62,11 +76,10 @@ namespace La2Skolopendra
             newSelector.RequestRemove += (sender, args) =>
             {
                 RemovableSelectors.Remove(newSelector);
-                RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
+                RegionImage = DrawRegions();
             };
-            newSelector.AreaBoundsChanged += NewSelectorOnAreaBoundsChanged;
+            newSelector.AreaBoundsChanged += OnSelectorAreaBoundsChanged;
             RemovableSelectors.Add(newSelector);
-            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
         }
 
         private bool _isEnabled;
@@ -98,7 +111,6 @@ namespace La2Skolopendra
             if (mainWindowImage != null)
             {
                 Image = mainWindowImage;
-                RegionImage = BitmapHelper.BitmapToBitmapSource(new Bitmap(Image.PixelWidth, Image.PixelHeight));
 
                 foreach (var selector in RemovableSelectors)
                 {
@@ -106,26 +118,18 @@ namespace La2Skolopendra
                     selector.SelectorViewModel.MaxWidth = Image.PixelWidth;
                 }
 
-                RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
+                RegionImage = DrawRegions();
             }
         }
 
-        private void NewSelectorOnAreaBoundsChanged(object sender, EventArgs e)
+        private void OnSelectorAreaBoundsChanged(object sender, EventArgs e)
         {
-            RegionImage = BitmapHelper.BitmapToBitmapSource(DrawRegions());
-            var info = new OcrExcludeInfo();
-            foreach (var selector in RemovableSelectors)
-            {
-                info.Data.Add(new Rectangle(selector.SelectorViewModel.CurrentX,
-                    selector.SelectorViewModel.CurrentY,
-                    selector.SelectorViewModel.CurrentWidth,
-                    selector.SelectorViewModel.CurrentHeight));
-            }
-            OnRegionUpdated(info);
+            RegionImage = DrawRegions();
+            OnRegionUpdated();
         }
 
         [NotNull]
-        private Bitmap DrawRegions()
+        private BitmapSource DrawRegions()
         {
             var target = new Bitmap(Image.PixelWidth, Image.PixelHeight);
             target.MakeTransparent();
@@ -150,7 +154,7 @@ namespace La2Skolopendra
                 }
             }
 
-            return target;
+            return BitmapHelper.BitmapToBitmapSource(target);
         }
     }
 }

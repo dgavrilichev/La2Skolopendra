@@ -7,9 +7,9 @@ namespace La2Skolopendra.Export
     public sealed class OcrRegionInfo
     {
         [DataMember]
-        public Rectangle MyHp { get; set; }
+        public Rectangle MyHp { get; set; } = new Rectangle(10, 100, 200, 50);
 
         [DataMember]
-        public Rectangle TargetHp { get; set; }
+        public Rectangle TargetHp { get; set; } = new Rectangle(10, 200, 200, 50);
     }
 }
