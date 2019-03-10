@@ -51,6 +51,15 @@ namespace CommonLibrary
             return bitmap;
         }
 
+        public static byte[] ImageToByte2(Image img)
+        {
+            using (var stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
+
         [NotNull]
         public static Bitmap CreateResizedImage([NotNull] Bitmap image, int width, int height)
         {

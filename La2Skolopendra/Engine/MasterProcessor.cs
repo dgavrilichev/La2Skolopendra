@@ -2,9 +2,11 @@
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using CommonLibrary;
 using JetBrains.Annotations;
 using La2Skolopendra.Export;
 using La2Skolopendra.Native;
+using OpenCvSharp;
 
 namespace La2Skolopendra.Engine
 {
@@ -50,8 +52,11 @@ namespace La2Skolopendra.Engine
             if(screenshot == null) throw new ArgumentNullException(nameof(screenshot));
 
             var screenshotWithExclude = ScreenshotHelper.ApplyExclude(_settings.ExcludeInfo.Data, screenshot);
-
             OnScreenCapture(new Bitmap(screenshotWithExclude));
+
+            var src = Mat.FromImageData(BitmapHelper.ImageToByte2(screenshotWithExclude));
+            var blacked = new Mat();
+            Cv2.Threshold(src, blacked, 127, 255, ThresholdTypes.Binary);
         } 
     }
 }
