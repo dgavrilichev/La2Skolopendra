@@ -43,7 +43,6 @@ namespace La2Skolopendra.Native
                     rectangle,
                     GraphicsUnit.Pixel);
 
-                target.Save("hp.png", System.Drawing.Imaging.ImageFormat.Png);
                 return target;
             }
         }

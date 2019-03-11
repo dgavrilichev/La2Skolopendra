@@ -26,7 +26,8 @@ namespace La2Skolopendra.Native
             F11 = 0x7A,
             F12 = 0x7B,
             Left = 0x25,
-            Right = 0x27
+            Right = 0x27,
+            Num1 = 0x61
         }
 
         private const int MOUSEEVENTF_LEFTDOWN = 0x02;

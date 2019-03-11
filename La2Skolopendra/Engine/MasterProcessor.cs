@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Timers;
 using JetBrains.Annotations;
 using La2Skolopendra.Export;
 using La2Skolopendra.Native;
@@ -18,6 +18,8 @@ namespace La2Skolopendra.Engine
 {
     internal sealed class MasterProcessor
     {
+        private readonly System.Timers.Timer _timer = new System.Timers.Timer();
+
         internal event EventHandler<string> Report;
         private void OnReport(string e)
         {
@@ -34,11 +36,22 @@ namespace La2Skolopendra.Engine
 
         private readonly IntPtr _hWnd;
         [NotNull] private readonly SkSettings _settings;
+        private readonly IntPtr? _slaveIntPtr;
 
-        internal MasterProcessor(IntPtr hWnd, [NotNull] SkSettings settings)
+        internal MasterProcessor(IntPtr hWnd, [NotNull] SkSettings settings, IntPtr? _slaveIntPtr)
         {
             _hWnd = hWnd;
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            this._slaveIntPtr = _slaveIntPtr;
+
+            _timer.Interval = TimeSpan.FromSeconds(30).TotalMilliseconds;
+            _timer.Elapsed += (sender, args) =>
+            {
+                _timer.Stop();
+                
+                WindowCommandHelper.PressKey(_hWnd, WindowCommandHelper.KeyCodes.F6);
+            };
+            _timer.AutoReset = false;
         }
 
         internal async Task Run(CancellationToken cancellationToken)
@@ -53,29 +66,49 @@ namespace La2Skolopendra.Engine
 
                 var targetIsSelected = await SelectGoodTarget(cancellationToken, screenshot);
 
+                if(!targetIsSelected && !_timer.Enabled)
+                    _timer.Start();
+
                 if (targetIsSelected)
                     await FightTarget(cancellationToken);
                 else
                     await TurnScreen(cancellationToken);
 
-                await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(0.5), cancellationToken);
             }
         }
 
         private async Task TurnScreen(CancellationToken cancellationToken)
         {
-
+            for (var i = 0; i < 15; i++)
+            {
+                WindowCommandHelper.PressKey(_hWnd, WindowCommandHelper.KeyCodes.Right);
+                await Task.Delay(TimeSpan.FromSeconds(0.1), cancellationToken);
+            }
         }
 
         private async Task FightTarget(CancellationToken cancellationToken)
         {
+            _timer.Stop();
             OnReport($"Target found!");
             while (!cancellationToken.IsCancellationRequested)
             {
                 var screenshot = ScreenshotHelper.GetScreenBitmap(_hWnd);
                 var targetHealth = ScreenshotHelper.GetSubPart(screenshot, _settings.RegionInfo.TargetHp);
                 var targetHealthPercent = GetTargetHpPercent(targetHealth);
-                OnReport($"Target health: {targetHealthPercent:###.##}%");
+
+                var myHealth = ScreenshotHelper.GetSubPart(screenshot, _settings.RegionInfo.MyHp);
+                var myHealthPercent = GetMyHpPercent(myHealth);
+                if (Math.Abs(myHealthPercent) < 100 && _slaveIntPtr.HasValue)
+                {
+                    OnReport("Request self heal");
+                    WindowCommandHelper.PressKey(_slaveIntPtr.Value, WindowCommandHelper.KeyCodes.F7);
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    WindowCommandHelper.PressKey(_slaveIntPtr.Value, WindowCommandHelper.KeyCodes.F3);
+                }
+
+
+                OnReport($"Target HP: {targetHealthPercent:###.##}% MY: {myHealthPercent:###.##}%");
                 if(Math.Abs(targetHealthPercent) < 0.00001)
                     break;
                 
@@ -123,7 +156,37 @@ namespace La2Skolopendra.Engine
                 await Task.Delay(TimeSpan.FromSeconds(0.5), cancellationToken);
             }
 
+            var screenshotWithHp2 = ScreenshotHelper.GetScreenBitmap(_hWnd);
+            var targetHealth2 = ScreenshotHelper.GetSubPart(screenshotWithHp2, _settings.RegionInfo.TargetHp);
+            var targetHealthPercent2 = GetTargetHpPercent(targetHealth2);
+            OnReport($"Target health: {targetHealthPercent2}");
+
+            if (targetHealthPercent2 > 0)
+                return true;
+
+            OnReport($"Target is dead or neutral");
+            await Task.Delay(TimeSpan.FromSeconds(0.5), cancellationToken);
+
             return false;
+        }
+
+        private double GetMyHpPercent(Bitmap hpBar)
+        {
+            //r 99-231
+            //g 0-73
+            //b 0-132
+            var y = hpBar.Height / 2;
+            var x80 = hpBar.Width / 100 * 80;
+            var c80 = hpBar.GetPixel(x80, y);
+            if (c80.R >= 140)
+                return 100;
+
+            var x25 = hpBar.Width / 100 * 25;
+            var c25 = hpBar.GetPixel(x25, y);
+            if (c25.R >= 140)
+                return 80;
+
+            return 10;
         }
 
         private double GetTargetHpPercent(Bitmap hpBar)

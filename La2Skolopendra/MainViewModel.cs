@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CommonLibrary.Logging;
 using CommonLibrary.Wpf;
@@ -69,10 +70,11 @@ namespace La2Skolopendra
             var main = e.SingleOrDefault(w => w.IsMain);
             OcrRegionViewModel.SetMainWindowImage(main?.Image);
             OcrExcludeViewModel.SetMainWindowImage(main?.Image);
-
+            var slave = e.FirstOrDefault(w => !w.IsMain);
+            Debug.WriteLine(slave?.HWnd);
             if (main != null)
             {
-                MasterViewModel = new MasterViewModel(_skSettings, main.HWnd);
+                MasterViewModel = new MasterViewModel(_skSettings, main.HWnd, slave?.HWnd);
             }
         }
     }

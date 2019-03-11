@@ -17,11 +17,11 @@ namespace La2Skolopendra
     {
         [NotNull] private readonly MasterProcessor _masterProcessor;
 
-        internal MasterViewModel([NotNull] SkSettings settings, IntPtr hWnd)
+        internal MasterViewModel([NotNull] SkSettings settings, IntPtr hWnd, IntPtr? slaveIntPtr)
         {
             if(settings == null) throw new ArgumentNullException(nameof(settings));
 
-            _masterProcessor = new MasterProcessor(hWnd, settings);
+            _masterProcessor = new MasterProcessor(hWnd, settings, slaveIntPtr);
             _masterProcessor.ScreenCapture += MasterProcessorOnScreenCapture;
             _masterProcessor.Report += MasterProcessorOnReport;
         }
